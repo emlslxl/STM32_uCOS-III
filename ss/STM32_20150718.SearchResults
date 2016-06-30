@@ -1,0 +1,6 @@
+---- OS_MsgQGet Matches (5 in 5 files) ----
+Os.h (ucos-iii\source):void         *OS_MsgQGet                (OS_MSG_Q              *p_msg_q,
+Os_msg.c (ucos-iii\source):void  *OS_MsgQGet (OS_MSG_Q    *p_msg_q,
+Os_pend_multi.c (ucos-iii\source):            p_void = OS_MsgQGet(&p_q->MsgQ,                      /* Yes, Any message waiting in the message queue?    */
+Os_q.c (ucos-iii\source):    p_void = OS_MsgQGet(&p_q->MsgQ,                         /* Any message waiting in the message queue?              */
+Os_task.c (ucos-iii\source):    p_void  = OS_MsgQGet(p_msg_q,
