@@ -4,13 +4,8 @@
 #include "stm32f10x.h"
 #include <stdio.h>
 
+#define RT_USING_UART3
 
-extern u8 gUsart1RxBuff[1024];
-
-
-void USART1_Config(void);
-void NVIC_Configuration(void);
-int fputc(int ch, FILE *f);
-int fgetc(FILE *f);
+extern void bsp_uart_init(void);
 
 #endif /* __USART1_H */

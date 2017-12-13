@@ -136,8 +136,8 @@
             <DriverSelection>4099</DriverSelection>
           </Flash1>
           <bUseTDR>0</bUseTDR>
-          <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash2>Segger\JL2CM3.dll</Flash2>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -595,16 +595,6 @@
           <GroupName>Bsp</GroupName>
           <Files>
             <File>
-              <FileName>bsp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Bsp\bsp.h</FilePath>
-            </File>
-            <File>
               <FileName>bsp_led.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Bsp\bsp_led.c</FilePath>
@@ -613,16 +603,6 @@
               <FileName>bsp_led.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\Bsp\bsp_led.h</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_NVIC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_NVIC.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_usart1.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_usart1.c</FilePath>
             </File>
             <File>
               <FileName>bsp_flash.c</FileName>
@@ -668,6 +648,21 @@
               <FileName>bsp_rtc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Bsp\bsp_rtc.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\bsp_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\bsp_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\board.c</FilePath>
             </File>
           </Files>
         </Group>

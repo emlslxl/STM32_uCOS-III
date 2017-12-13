@@ -14,7 +14,7 @@ typedef unsigned char uint8;   /*!< Read Only */
 
 #include "rtos.h"
 
-#include "bsp_usart1.h"
+#include "bsp_uart.h"
 #include "bsp_exti.h"
 #include "bsp_timer.h"
 #include "bsp_rda5807m.h"
@@ -24,7 +24,7 @@ typedef unsigned char uint8;   /*!< Read Only */
 
 
 #include "app.h"
-#include "bsp.h"
+#include "board.h"
 
 
 

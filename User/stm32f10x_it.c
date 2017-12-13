@@ -22,7 +22,6 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
-#include "includes.h"
 #include "global.h"
 
 
@@ -193,99 +192,6 @@ void DMA1_Channel1_IRQHandler()
   */
 void USART1_IRQHandler(void)
 {
-    OS_ERR err;
-  u8 *memblk;
-  u8 getChar;
-  u32 i,index;
-
-  if(USART_GetITStatus(USART1,USART_IT_RXNE) == SET)
-  {
-    USART_ClearITPendingBit(USART1,USART_IT_RXNE);
-    getChar = (u8)USART_ReceiveData(USART1);
-    switch(gUsart1RxState)
-    {
-      case USART1_RX_IDLE:
-        switch(gUsart1RxStep)
-        {
-          case 0:
-            if(getChar == 0x5F)
-              gUsart1RxStep++;
-            else
-              gUsart1RxStep = 0;
-            break;
-          case 1:
-            if(getChar == 0x5F)
-              gUsart1RxStep++;
-            else
-              gUsart1RxStep = 0;
-            break;
-          case 2:
-            gUsart1RxStep++;
-            gUsart1RxLength = getChar;
-            break;
-          case 3:
-            gUsart1RxStep++;
-            gUsart1RxState = USART1_RX_BUSY;
-            gUsart1RxPoint = gUsart1RxBuff;
-            gUsart1RxLength = (u16)(getChar << 8)|(gUsart1RxLength);
-            break;
-          default:
-            gUsartRxOver = 0;
-            gUsart1RxStep = 0;
-            gUsart1RxPoint = NULL;
-            gUsart1RxState = USART1_RX_IDLE;
-            break;
-        }
-        break;
-      case USART1_RX_BUSY:
-        index = gUsart1RxStep - 4;
-        if((getChar == 0xAA)&&(gUsart1RxStep-4 == gUsart1RxLength))
-        {
-          gUsartRxOver = 1;
-        }
-        else if((getChar == 0x55)&&(gUsartRxOver == 1))
-        {
-          memblk = (u8*)AllocMem(gUsart1RxLength);
-          if(memblk != NULL)
-          {
-            memset(memblk,0,gUsart1RxLength);
-            for(i=0;i<gUsart1RxLength;i++)
-            {
-              memblk[i] = gUsart1RxBuff[i];
-            }
-
-            gUsartRxOver = 0;
-            gUsart1RxStep = 0;
-            gUsart1RxPoint = NULL;
-            gUsart1RxState = USART1_RX_IDLE;
-
-            OSTaskQPost(&MsgHandler_TCB,NULL,0,OS_OPT_POST_FIFO,&err);
-          }
-
-        }
-        else
-        {
-          if((gUsart1RxStep-4) > gUsart1RxLength)
-          {
-            gUsartRxOver = 0;
-            gUsart1RxStep = 0;
-            gUsart1RxLength = 0;
-            gUsart1RxPoint = NULL;
-            gUsart1RxState = USART1_RX_IDLE;
-          }
-          gUsart1RxStep++;
-          gUsart1RxPoint[index] = getChar;
-        }
-        break;
-      default:
-        gUsartRxOver = 0;
-        gUsart1RxStep = 0;
-        gUsart1RxLength = 0;
-        gUsart1RxPoint = NULL;
-        gUsart1RxState = USART1_RX_IDLE;
-        break;
-    }
-  }
 }
 
 

@@ -97,15 +97,7 @@ void Task_SoftTimerHisr(void *p_arg)
     {
         OSTaskQPend(0, OS_OPT_PEND_BLOCKING, 0, NULL, &err);
         SoftTimerHisr();
-        //GPIO_ResetBits(GPIOC, GPIO_Pin_3);
-        //OSTimeDlyHMSM(0, 0,1,0,OS_OPT_TIME_HMSM_STRICT,&err);
-
-        //GPIO_SetBits(GPIOC, GPIO_Pin_3);
-        //OSTimeDlyHMSM(0, 0,1,0,OS_OPT_TIME_HMSM_STRICT,&err);
-
     }
-
-
 }
 
 

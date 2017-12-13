@@ -15,70 +15,118 @@
   ******************************************************************************
   */
 
-#include "bsp_usart1.h"
+#include "bsp_uart.h"
 
 
-u8 gUsart1RxBuff[1024];
+static int stm32_putc(USART_TypeDef* USARTx, char c)
+{
+    USARTx->SR;// 防止第一次发送时的乱码
+    USARTx->DR = c;
+    while (!(USARTx->SR & USART_FLAG_TC));
+
+    return 1;
+}
+
+static int stm32_getc(USART_TypeDef* USARTx)
+{
+    int ch;
+
+    ch = -1;
+    if (USARTx->SR & USART_FLAG_RXNE)
+    {
+        ch = USARTx->DR & 0xff;
+    }
+
+    return ch;
+}
 
 /**
- * @brief  USART1 GPIO 配置,工作模式配置。9600 8-N-1
- * @param  无
- * @retval 无
+ * @desc  : 重映射printf功能到调试串口
+ * @param : ch 待发送的字符
+ * @return: none
  */
-void USART1_Config(void)
+int fputc(int ch, FILE *f)
 {
-    GPIO_InitTypeDef GPIO_InitStructure;
+    stm32_putc(USART3, ch);
+
+    return ch;
+}
+
+
+static void RCC_Configuration(void)
+{
+#if defined(RT_USING_UART1)
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOA, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+#endif /* RT_USING_UART1 */
+
+#if defined(RT_USING_UART2)
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOA, ENABLE);
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+#endif /* RT_USING_UART2 */
+
+#if defined(RT_USING_UART3)
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOD, ENABLE);
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+    GPIO_PinRemapConfig(GPIO_FullRemap_USART3, ENABLE);
+#endif
+
+#if defined(RT_USING_UART4)
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOC, ENABLE);
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART4, ENABLE);//UART4
+#endif
+
+#if defined(RT_USING_UART5)
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD, ENABLE);
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART5, ENABLE);//UART5
+#endif
+}
+
+static void GPIO_Configuration(void)
+{
+#if defined(RT_USING_UART1)
+    rt_gpio_set_mode(GPIOA, GPIO_Pin_10, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz);
+    rt_gpio_set_mode(GPIOA, GPIO_Pin_9, GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
+#endif /* RT_USING_UART1 */
+
+#if defined(RT_USING_UART2)
+    rt_gpio_set_mode(GPIOA, GPIO_Pin_3, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz);
+    rt_gpio_set_mode(GPIOA, GPIO_Pin_2, GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
+#endif /* RT_USING_UART2 */
+
+#if defined(RT_USING_UART3)
+    rt_gpio_set_mode(GPIOD, GPIO_Pin_9, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz);
+    rt_gpio_set_mode(GPIOD, GPIO_Pin_8, GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
+#endif /* RT_USING_UART3 */
+
+#if defined(RT_USING_UART4)
+    rt_gpio_set_mode(GPIOC, GPIO_Pin_11, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz);
+    rt_gpio_set_mode(GPIOC, GPIO_Pin_10, GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
+#endif /* RT_USING_UART4 */
+
+#if defined(RT_USING_UART5)
+    rt_gpio_set_mode(GPIOD, GPIO_Pin_5, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz);
+    rt_gpio_set_mode(GPIOC, GPIO_Pin_12, GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
+#endif /* RT_USING_UART5 */
+}
+
+void bsp_uart_init(void)
+{
     USART_InitTypeDef USART_InitStructure;
 
-    /* config USART1 clock */
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA, ENABLE);
+    RCC_Configuration();
+    GPIO_Configuration();
 
-    /* USART1 GPIO config */
-    /* Configure USART1 Tx (PA.09) as alternate function push-pull */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);
-    /* Configure USART1 Rx (PA.10) as input floating */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-    GPIO_Init(GPIOA, &GPIO_InitStructure);
-
-    /* USART1 mode config */
+#if defined(RT_USING_UART3)
     USART_InitStructure.USART_BaudRate = 115200;
     USART_InitStructure.USART_WordLength = USART_WordLength_8b;
     USART_InitStructure.USART_StopBits = USART_StopBits_1;
-    USART_InitStructure.USART_Parity = USART_Parity_No ;
+    USART_InitStructure.USART_Parity = USART_Parity_No;
     USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
     USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-    USART_Init(USART1, &USART_InitStructure);
-
-    /* 使能串口1接收中断 */
-    USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
-
-    USART_Cmd(USART1, ENABLE);
+    USART_Init(USART3, &USART_InitStructure);
+    USART_Cmd(USART3, ENABLE);
+#endif /* RT_USING_UART3 */
 }
 
-
-
-/// 重定向c库函数printf到USART1
-int fputc(int ch, FILE *f)
-{
-    /* 发送一个字节数据到USART1 */
-    USART_SendData(USART1, (uint8_t) ch);
-
-    /* 等待发送完毕 */
-    while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
-
-    return (ch);
-}
-
-/// 重定向c库函数scanf到USART1
-int fgetc(FILE *f)
-{
-    /* 等待串口1输入数据 */
-    while (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == RESET);
-
-    return (int)USART_ReceiveData(USART1);
-}
 /*********************************************END OF FILE**********************/
