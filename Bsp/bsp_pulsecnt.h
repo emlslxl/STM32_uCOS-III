@@ -18,11 +18,11 @@
 ******************************************************************************/
 #ifndef __BSP_PULSECNT_H__
 #define __BSP_PULSECNT_H__
-	
-	
+
+
 #ifdef __cplusplus
 #if __cplusplus
-	extern "C"{
+extern "C" {
 #endif
 #endif /* __cplusplus */
 
@@ -49,33 +49,33 @@
 /*----------------------------------------------*
  * 模块级变量                                   *
  *----------------------------------------------*/
-typedef __packed struct 
+typedef __packed struct
 {
- //[7]:0,没有成功的捕获;1,成功捕获到一次.
- //[6]:0,还没捕获到高电平;1,已经捕获到高电平了.
- //[5:0]:捕获高电平后溢出的次数
- uint8_t CapState[4];
- uint16_t CapValue[4];
- uint32_t FirstCapValue[4];
-}S_TIM_CAP;
+//[7]:0,没有成功的捕获;1,成功捕获到一次.
+//[6]:0,还没捕获到高电平;1,已经捕获到高电平了.
+//[5:0]:捕获高电平后溢出的次数
+    uint8_t CapState[4];
+    uint16_t CapValue[4];
+    uint32_t FirstCapValue[4];
+} S_TIM_CAP;
 
 /*----------------------------------------------*
  * 常量定义                                     *
  *----------------------------------------------*/
 
-	 
+
 /*----------------------------------------------*
  * 宏定义                                       *
  *----------------------------------------------*/
-#define CHANNEL_1	0
-#define CHANNEL_2	1
-#define CHANNEL_3	2
-#define CHANNEL_4	3
+#define CHANNEL_1   0
+#define CHANNEL_2   1
+#define CHANNEL_3   2
+#define CHANNEL_4   3
 
 
 
 
-extern   void TIM3_Cap_Init(u16 arr,u16 psc);
+extern   void TIM3_Cap_Init(u16 arr, u16 psc);
 extern void TIM3_CAP_TEST();
 extern u16 TIM3_GetFreqValue(u16 Channel);
 extern void TIM3_IRQHandler(void);

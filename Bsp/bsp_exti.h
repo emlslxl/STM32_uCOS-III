@@ -10,11 +10,11 @@ extern volatile uint32 gExtiTrigerFlag[16];
 
 
 
-typedef struct 
+typedef struct
 {
     uint32 PinNum;
     uint32 TrigState;
-}S_ExtiFifo;
+} S_ExtiFifo;
 
 
 

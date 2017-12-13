@@ -1,7 +1,7 @@
-#ifndef	_APP_H_
-#define	_APP_H_
+#ifndef _APP_H_
+#define _APP_H_
 
-#include "global.h" 
+#include "global.h"
 
 
 #define Write_Flash_REQ   0
@@ -23,4 +23,4 @@ extern void CallBack(void);
 
 
 
-#endif	//_APP_H_
+#endif  //_APP_H_

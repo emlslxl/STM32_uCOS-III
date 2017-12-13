@@ -4,7 +4,7 @@
 #include "global.h"
 
 
-#define OS_TICKS_PER_SEC 	50
+#define OS_TICKS_PER_SEC    50
 
 
 

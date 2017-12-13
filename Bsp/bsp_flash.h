@@ -11,9 +11,9 @@
 
 typedef struct
 {
-  u16 MsgID;
-  u16 len;
-  u32 addr;
+    u16 MsgID;
+    u16 len;
+    u32 addr;
 }
 S_WriteFlashReq;
 

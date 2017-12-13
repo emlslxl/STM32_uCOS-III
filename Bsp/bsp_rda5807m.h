@@ -1,5 +1,5 @@
 #ifndef __RDA5807M_H
-#define	__RDA5807M_H
+#define __RDA5807M_H
 
 #include "global.h"
 

@@ -11,6 +11,8 @@
 *.ilk
 build
 Debug
+Output
+list
 *.html
 *.htm
 .vscode

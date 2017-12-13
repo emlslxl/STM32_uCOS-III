@@ -15,9 +15,9 @@
 
 typedef struct
 {
-  u16 MsgID;
-  u16 channel;
-  u16 value;
+    u16 MsgID;
+    u16 channel;
+    u16 value;
 }
 S_WriteDACReq;
 
