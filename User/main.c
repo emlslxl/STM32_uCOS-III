@@ -20,11 +20,6 @@ int main(void)
 
     RTOS_CreateTask();
 
-
-    //RDA5807_FM_Test();
-
-
-
     /* 启动多任务系统，控制权交给uC/OS-II */
     OSStart(&err);
 

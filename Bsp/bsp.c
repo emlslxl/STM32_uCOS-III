@@ -23,6 +23,9 @@ void Get_ChipID(void)
 void BSP_Init(void)
 {
     SysTick_init();
+
+    USART1_Config();
+
     switch (RCC_GetSYSCLKSource())
     {
     case 0x00 :
@@ -39,20 +42,6 @@ void BSP_Init(void)
         printf("\r\n * unkonwn clock soure. *");
         break;
     }
-
-    /* LED 端口初始化 */
-    LED_GPIO_Config();
-    //EXTI_Cfg();
-
-    USART1_Config();
-    ADC1_Init();
-    //DAC_Config();
-    //RTC_Configuration();
-
-    //SoftTimerInit();
-
-    //NVIC_Configuration();
-
 }
 
 /*
