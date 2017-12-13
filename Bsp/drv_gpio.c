@@ -1,4 +1,4 @@
-#include "bsp_gpio.h"
+#include "drv_gpio.h"
 
 void rt_gpio_set_mode(GPIO_TypeDef *port, uint16_t pin,
                       GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed)

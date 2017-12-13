@@ -15,7 +15,7 @@
   ******************************************************************************
   */
 
-#include "bsp_uart.h"
+#include "drv_uart.h"
 
 
 static int stm32_putc(USART_TypeDef* USARTx, char c)

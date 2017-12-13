@@ -1,4 +1,5 @@
 #include "boot.h"
+#include "app_iap.h"
 
 void Task_BootHandler(void *p_arg)
 {
