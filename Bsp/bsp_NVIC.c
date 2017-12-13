@@ -8,7 +8,7 @@ void NVIC_Configuration(void)
     /* Configure the NVIC Preemption Priority Bits */
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_0);
 
-    /// ≈‰÷√USART1Ω” ’÷–∂œ
+    /// ÈÖçÁΩÆUSART1Êé•Êî∂‰∏≠Êñ≠
     /* Enable the USARTy Interrupt */
     NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
@@ -16,14 +16,14 @@ void NVIC_Configuration(void)
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
-    /* ≈‰÷√P[A|B|C|D|E]13Œ™÷–∂œ‘¥ */
+    /* ÈÖçÁΩÆP[A|B|C|D|E]13‰∏∫‰∏≠Êñ≠Ê∫ê */
     NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 
-    /* ≈‰÷√P[A|B|C|D|E]0Œ™÷–∂œ‘¥ */
+    /* ÈÖçÁΩÆP[A|B|C|D|E]0‰∏∫‰∏≠Êñ≠Ê∫ê */
     NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;

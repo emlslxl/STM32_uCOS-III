@@ -7,12 +7,12 @@ int main(void)
     OS_ERR err;
     u16 value;
 
-    /* °å¼¶³õÊ¼»¯ */
+    /* æ¿çº§åˆå§‹åŒ– */
     BSP_Init();
 
     //function_test();
 
-    /* ³õÊ¼»¯"uC/OS-III"ÄÚºË */
+    /* åˆå§‹åŒ–"uC/OS-III"å†…æ ¸ */
     OSInit(&err);
     printf("OS Start!!\r\n");
 
@@ -25,7 +25,7 @@ int main(void)
 
 
 
-    /* Æô¶¯¶àÈÎÎñÏµÍ³£¬¿ØÖÆÈ¨½»¸øuC/OS-II */
+    /* å¯åŠ¨å¤šä»»åŠ¡ç³»ç»Ÿï¼Œæ§åˆ¶æƒäº¤ç»™uC/OS-II */
     OSStart(&err);
 
 }

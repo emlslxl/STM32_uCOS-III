@@ -19,7 +19,7 @@ void EXTI_PA0_Config(void)
 
     /* EXTI line gpio config(PA0) */
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;    // …œ¿≠ ‰»Î
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;    // ‰∏äÊãâËæìÂÖ•
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
     /* EXTI line(PA0) mode config */
@@ -29,7 +29,7 @@ void EXTI_PA0_Config(void)
     {
         EXTI_InitStructure.EXTI_Line = EXTI_Line0;
         EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-        EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //œ¬Ωµ—ÿ÷–∂œ
+        EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //‰∏ãÈôçÊ≤ø‰∏≠Êñ≠
         EXTI_InitStructure.EXTI_LineCmd = ENABLE;
         EXTI_Init(&EXTI_InitStructure);
     }
@@ -56,7 +56,7 @@ void EXTI_PC13_Config(void)
 
     /* EXTI line gpio config(PC13) */
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;    // …œ¿≠ ‰»Î
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;    // ‰∏äÊãâËæìÂÖ•
     GPIO_Init(GPIOC, &GPIO_InitStructure);
 
     /* EXTI line(PC13) mode config */
@@ -66,7 +66,7 @@ void EXTI_PC13_Config(void)
     {
         EXTI_InitStructure.EXTI_Line = EXTI_Line13;
         EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-        EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //œ¬Ωµ—ÿ÷–∂œ
+        EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling; //‰∏ãÈôçÊ≤ø‰∏≠Êñ≠
         EXTI_InitStructure.EXTI_LineCmd = ENABLE;
         EXTI_Init(&EXTI_InitStructure);
 

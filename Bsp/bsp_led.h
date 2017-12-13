@@ -10,7 +10,7 @@
 #define ON  0
 #define OFF 1
 
-/* ´ø²Îºê£¬¿ÉÒÔÏñÄÚÁªº¯ÊıÒ»ÑùÊ¹ÓÃ */
+/* å¸¦å‚å®ï¼Œå¯ä»¥åƒå†…è”å‡½æ•°ä¸€æ ·ä½¿ç”¨ */
 #define LED1(a) if (a)  \
                     GPIO_SetBits(GPIOB,GPIO_Pin_0);\
                     else        \
@@ -27,13 +27,13 @@
                     GPIO_ResetBits(GPIOF,GPIO_Pin_8)
 
 
-/* Ö±½Ó²Ù×÷¼Ä´æÆ÷µÄ·½·¨¿ØÖÆIO */
-#define digitalHi(p,i)          {p->BSRR=i;}            //ÉèÖÃÎª¸ßµçÆ½
-#define digitalLo(p,i)          {p->BRR=i;}             //Êä³öµÍµçÆ½
-#define digitalToggle(p,i)      {p->ODR ^=i;}           //Êä³ö·´×ª×´Ì¬
+/* ç›´æ¥æ“ä½œå¯„å­˜å™¨çš„æ–¹æ³•æ§åˆ¶IO */
+#define digitalHi(p,i)          {p->BSRR=i;}            //è®¾ç½®ä¸ºé«˜ç”µå¹³
+#define digitalLo(p,i)          {p->BRR=i;}             //è¾“å‡ºä½ç”µå¹³
+#define digitalToggle(p,i)      {p->ODR ^=i;}           //è¾“å‡ºåè½¬çŠ¶æ€
 
 
-/* ¶¨Òå¿ØÖÆIOµÄºê */
+/* å®šä¹‰æ§åˆ¶IOçš„å® */
 #define LED1_TOGGLE     digitalToggle(GPIOB,GPIO_Pin_0)
 #define LED1_OFF        digitalHi(GPIOB,GPIO_Pin_0)
 #define LED1_ON         digitalLo(GPIOB,GPIO_Pin_0)

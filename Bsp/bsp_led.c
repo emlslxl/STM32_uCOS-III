@@ -4,13 +4,13 @@
   * @author  fire
   * @version V1.0
   * @date    2013-xx-xx
-  * @brief   ledÓ¦ÓÃº¯Êı½Ó¿Ú
+  * @brief   ledåº”ç”¨å‡½æ•°æ¥å£
   ******************************************************************************
   * @attention
   *
-  * ÊµÑéÆ½Ì¨:Ò°»ğ iSO STM32 ¿ª·¢°å
-  * ÂÛÌ³    :http://www.chuxue123.com
-  * ÌÔ±¦    :http://firestm32.taobao.com
+  * å®éªŒå¹³å°:é‡ç« iSO STM32 å¼€å‘æ¿
+  * è®ºå›    :http://www.chuxue123.com
+  * æ·˜å®    :http://firestm32.taobao.com
   *
   ******************************************************************************
   */
@@ -18,46 +18,46 @@
 #include "bsp_led.h"
 
 /**
- * @brief  ³õÊ¼»¯¿ØÖÆLEDµÄIO
- * @param  ÎŞ
- * @retval ÎŞ
+ * @brief  åˆå§‹åŒ–æ§åˆ¶LEDçš„IO
+ * @param  æ— 
+ * @retval æ— 
  */
 void LED_GPIO_Config(void)
 {
-    /*¶¨ÒåÒ»¸öGPIO_InitTypeDefÀàĞÍµÄ½á¹¹Ìå*/
+    /*å®šä¹‰ä¸€ä¸ªGPIO_InitTypeDefç±»å‹çš„ç»“æ„ä½“*/
     GPIO_InitTypeDef GPIO_InitStructure;
 
-    /*¿ªÆôGPIOBºÍGPIOFµÄÍâÉèÊ±ÖÓ*/
+    /*å¼€å¯GPIOBå’ŒGPIOFçš„å¤–è®¾æ—¶é’Ÿ*/
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOF, ENABLE);
 
-    /*Ñ¡ÔñÒª¿ØÖÆµÄGPIOBÒı½Å*/
+    /*é€‰æ‹©è¦æ§åˆ¶çš„GPIOBå¼•è„š*/
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
 
-    /*ÉèÖÃÒı½ÅÄ£Ê½ÎªÍ¨ÓÃÍÆÍìÊä³ö*/
+    /*è®¾ç½®å¼•è„šæ¨¡å¼ä¸ºé€šç”¨æ¨æŒ½è¾“å‡º*/
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 
-    /*ÉèÖÃÒı½ÅËÙÂÊÎª50MHz */
+    /*è®¾ç½®å¼•è„šé€Ÿç‡ä¸º50MHz */
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 
-    /*µ÷ÓÃ¿âº¯Êı£¬³õÊ¼»¯GPIOB0*/
+    /*è°ƒç”¨åº“å‡½æ•°ï¼Œåˆå§‹åŒ–GPIOB0*/
     GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-    /*Ñ¡ÔñÒª¿ØÖÆµÄGPIOFÒı½Å*/
+    /*é€‰æ‹©è¦æ§åˆ¶çš„GPIOFå¼•è„š*/
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
 
-    /*µ÷ÓÃ¿âº¯Êı£¬³õÊ¼»¯GPIOF7*/
+    /*è°ƒç”¨åº“å‡½æ•°ï¼Œåˆå§‹åŒ–GPIOF7*/
     GPIO_Init(GPIOF, &GPIO_InitStructure);
 
-    /*Ñ¡ÔñÒª¿ØÖÆµÄGPIOFÒı½Å*/
+    /*é€‰æ‹©è¦æ§åˆ¶çš„GPIOFå¼•è„š*/
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
 
-    /*µ÷ÓÃ¿âº¯Êı£¬³õÊ¼»¯GPIOF7*/
+    /*è°ƒç”¨åº“å‡½æ•°ï¼Œåˆå§‹åŒ–GPIOF7*/
     GPIO_Init(GPIOF, &GPIO_InitStructure);
 
-    /* ¹Ø±ÕËùÓĞledµÆ   */
+    /* å…³é—­æ‰€æœ‰ledç¯   */
     GPIO_SetBits(GPIOB, GPIO_Pin_0);
 
-    /* ¹Ø±ÕËùÓĞledµÆ   */
+    /* å…³é—­æ‰€æœ‰ledç¯   */
     GPIO_SetBits(GPIOF, GPIO_Pin_7 | GPIO_Pin_8);
 }
 /*********************************************END OF FILE**********************/

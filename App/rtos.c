@@ -141,23 +141,23 @@ void RTOS_CreateMem()
 void RTOS_CreateTask()
 {
     OS_ERR err;
-    /*´´½¨Íâ²¿ÖÐ¶Ï´¦ÀíÈÎÎñ  */
-    OSTaskCreate((OS_TCB *)&EXTIHandler_TCB,                                   /* ÈÎÎñ¿ØÖÆ¿éÖ¸Õë */
-                 (CPU_CHAR *)"EXTIHandler",                                      /* ÈÎÎñÃû³Æ  */
-                 (OS_TASK_PTR)Task_EXTIHandler,                              /* ÈÎÎñ´úÂëÖ¸Õë  */
-                 (void *)0,                                               // ´«µÝ¸øÈÎÎñµÄ²ÎÊýparg
-                 (OS_PRIO)TASK_EXTIHandler_PRIO,                             // ÈÎÎñÓÅÏÈ¼¶
-                 (CPU_STK *)&EXTIHandler_Stk[0],                           // ÈÎÎñ¶ÑÕ»»ùµØÖ·
-                 (CPU_STK_SIZE)TASK_EXTIHandler_STK_SIZE / 10,         // ¶ÑÕ»Ê£Óà¾¯½äÏß
-                 (CPU_STK_SIZE)TASK_EXTIHandler_STK_SIZE,                  // ¶ÑÕ»´óÐ¡
-                 (OS_MSG_QTY)10,                                              // ¿É½ÓÊÕµÄ×î´óÏûÏ¢¶ÓÁÐÊý
-                 (OS_TICK)0,                                              // Ê±¼äÆ¬ÂÖ×ªÊ±¼ä
-                 (void *)0,                                               // ÈÎÎñ¿ØÖÆ¿éÀ©Õ¹ÐÅÏ¢
+    /*åˆ›å»ºå¤–éƒ¨ä¸­æ–­å¤„ç†ä»»åŠ¡  */
+    OSTaskCreate((OS_TCB *)&EXTIHandler_TCB,                                   /* ä»»åŠ¡æŽ§åˆ¶å—æŒ‡é’ˆ */
+                 (CPU_CHAR *)"EXTIHandler",                                      /* ä»»åŠ¡åç§°  */
+                 (OS_TASK_PTR)Task_EXTIHandler,                              /* ä»»åŠ¡ä»£ç æŒ‡é’ˆ  */
+                 (void *)0,                                               // ä¼ é€’ç»™ä»»åŠ¡çš„å‚æ•°parg
+                 (OS_PRIO)TASK_EXTIHandler_PRIO,                             // ä»»åŠ¡ä¼˜å…ˆçº§
+                 (CPU_STK *)&EXTIHandler_Stk[0],                           // ä»»åŠ¡å †æ ˆåŸºåœ°å€
+                 (CPU_STK_SIZE)TASK_EXTIHandler_STK_SIZE / 10,         // å †æ ˆå‰©ä½™è­¦æˆ’çº¿
+                 (CPU_STK_SIZE)TASK_EXTIHandler_STK_SIZE,                  // å †æ ˆå¤§å°
+                 (OS_MSG_QTY)10,                                              // å¯æŽ¥æ”¶çš„æœ€å¤§æ¶ˆæ¯é˜Ÿåˆ—æ•°
+                 (OS_TICK)0,                                              // æ—¶é—´ç‰‡è½®è½¬æ—¶é—´
+                 (void *)0,                                               // ä»»åŠ¡æŽ§åˆ¶å—æ‰©å±•ä¿¡æ¯
                  (OS_OPT)(OS_OPT_TASK_STK_CHK |
-                          OS_OPT_TASK_STK_CLR),         // ÈÎÎñÑ¡Ïî
-                 (OS_ERR *)&err);                                       // ·µ»ØÖµ
+                          OS_OPT_TASK_STK_CLR),         // ä»»åŠ¡é€‰é¡¹
+                 (OS_ERR *)&err);                                       // è¿”å›žå€¼
 
-    //´´½¨ÏûÏ¢´¦ÀíÈÎÎñ
+    //åˆ›å»ºæ¶ˆæ¯å¤„ç†ä»»åŠ¡
     OSTaskCreate((OS_TCB *)&MsgHandler_TCB,
                  (CPU_CHAR *)"MsgHandler",
                  (OS_TASK_PTR)Task_MsgHandler,
@@ -175,20 +175,20 @@ void RTOS_CreateTask()
 
 
 
-    OSTaskCreate((OS_TCB *)&TIM2Hisr_TCB,                                   // ÈÎÎñ¿ØÖÆ¿éÖ¸Õë
-                 (CPU_CHAR *)"TIM2Hisr_TCB",                                      // ÈÎÎñÃû³Æ
-                 (OS_TASK_PTR)Task_SoftTimerHisr,                              // ÈÎÎñ´úÂëÖ¸Õë
-                 (void *)0,                                               // ´«µÝ¸øÈÎÎñµÄ²ÎÊýparg
-                 (OS_PRIO)TASK_TIM2Hisr_PRIO,                             // ÈÎÎñÓÅÏÈ¼¶
-                 (CPU_STK *)&TIM2Hisr_Stk[0],                           // ÈÎÎñ¶ÑÕ»»ùµØÖ·
-                 (CPU_STK_SIZE)TASK_TIM2Hisr_STK_SIZE / 10,         // ¶ÑÕ»Ê£Óà¾¯½äÏß
-                 (CPU_STK_SIZE)TASK_TIM2Hisr_STK_SIZE,                  // ¶ÑÕ»´óÐ¡
-                 (OS_MSG_QTY)10,                                              // ¿É½ÓÊÕµÄ×î´óÏûÏ¢¶ÓÁÐÊý
-                 (OS_TICK)0,                                              // Ê±¼äÆ¬ÂÖ×ªÊ±¼ä
-                 (void *)0,                                               // ÈÎÎñ¿ØÖÆ¿éÀ©Õ¹ÐÅÏ¢
+    OSTaskCreate((OS_TCB *)&TIM2Hisr_TCB,                                   // ä»»åŠ¡æŽ§åˆ¶å—æŒ‡é’ˆ
+                 (CPU_CHAR *)"TIM2Hisr_TCB",                                      // ä»»åŠ¡åç§°
+                 (OS_TASK_PTR)Task_SoftTimerHisr,                              // ä»»åŠ¡ä»£ç æŒ‡é’ˆ
+                 (void *)0,                                               // ä¼ é€’ç»™ä»»åŠ¡çš„å‚æ•°parg
+                 (OS_PRIO)TASK_TIM2Hisr_PRIO,                             // ä»»åŠ¡ä¼˜å…ˆçº§
+                 (CPU_STK *)&TIM2Hisr_Stk[0],                           // ä»»åŠ¡å †æ ˆåŸºåœ°å€
+                 (CPU_STK_SIZE)TASK_TIM2Hisr_STK_SIZE / 10,         // å †æ ˆå‰©ä½™è­¦æˆ’çº¿
+                 (CPU_STK_SIZE)TASK_TIM2Hisr_STK_SIZE,                  // å †æ ˆå¤§å°
+                 (OS_MSG_QTY)10,                                              // å¯æŽ¥æ”¶çš„æœ€å¤§æ¶ˆæ¯é˜Ÿåˆ—æ•°
+                 (OS_TICK)0,                                              // æ—¶é—´ç‰‡è½®è½¬æ—¶é—´
+                 (void *)0,                                               // ä»»åŠ¡æŽ§åˆ¶å—æ‰©å±•ä¿¡æ¯
                  (OS_OPT)(OS_OPT_TASK_STK_CHK |
-                          OS_OPT_TASK_STK_CLR),         // ÈÎÎñÑ¡Ïî
-                 (OS_ERR *)&err);                                       // ·µ»ØÖµ
+                          OS_OPT_TASK_STK_CLR),         // ä»»åŠ¡é€‰é¡¹
+                 (OS_ERR *)&err);                                       // è¿”å›žå€¼
 
 
 }

@@ -1,15 +1,15 @@
 #ifndef _BSP_GPS_H_
 #include "bsp_gps.h"
 
-//´ÓbufÀïÃæµÃµ½µÚcx¸ö¶ººÅËùÔÚµÄÎ»ÖÃ
-//·µ»ØÖµ:0~0XFE,´ú±í¶ººÅËùÔÚÎ»ÖÃµÄÆ«ÒÆ.
-//       0XFF,´ú±í²»´æÔÚµÚcx¸ö¶ººÅ
+//ä»Žbufé‡Œé¢å¾—åˆ°ç¬¬cxä¸ªé€—å·æ‰€åœ¨çš„ä½ç½®
+//è¿”å›žå€¼:0~0XFE,ä»£è¡¨é€—å·æ‰€åœ¨ä½ç½®çš„åç§».
+//       0XFF,ä»£è¡¨ä¸å­˜åœ¨ç¬¬cxä¸ªé€—å·
 u8 NMEA_Comma_Pos(u8 *buf, u8 cx)
 {
     u8 *p = buf;
     while (cx)
     {
-        if (*buf == '*' || *buf < ' ' || *buf > 'z')return 0XFF; //Óöµ½'*'»òÕß·Ç·¨×Ö·û,Ôò²»´æÔÚµÚcx¸ö¶ººÅ
+        if (*buf == '*' || *buf < ' ' || *buf > 'z')return 0XFF; //é‡åˆ°'*'æˆ–è€…éžæ³•å­—ç¬¦,åˆ™ä¸å­˜åœ¨ç¬¬cxä¸ªé€—å·
         if (*buf == ',')cx--;
         buf++;
     }
@@ -41,7 +41,7 @@ void GPRMC_Parse(uint8_t *buff)
     }
     if (GpsInfo.Status == 'A')
     {
-        GpsData.Status = 'A'; // ÓÐÐ§¶¨Î»
+        GpsData.Status = 'A'; // æœ‰æ•ˆå®šä½
         LED_BLUE_ON;
     }
     else

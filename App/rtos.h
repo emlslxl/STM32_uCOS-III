@@ -6,7 +6,7 @@
 
 
 
-/********************¿ØÖÆ¿éÍâ²¿ÉùÃ÷*******************/
+/********************æ§åˆ¶å—å¤–éƒ¨å£°æ˜*******************/
 extern OS_TCB   MsgHandler_TCB;
 extern OS_TCB   EXTIHandler_TCB;
 extern OS_TCB   TIM2Hisr_TCB;
@@ -18,7 +18,7 @@ extern OS_MEM MEM2_MCB;
 extern OS_MEM MEM3_MCB;
 
 
-/**************************ÄÚ´æ¿é¶¨Òå***************************/
+/**************************å†…å­˜å—å®šä¹‰***************************/
 
 #define MemBlkNum_1  10
 #define MemBlkSize_1 20
@@ -31,13 +31,13 @@ extern OS_MEM MEM3_MCB;
 
 
 
-/*******************ÉèÖÃÈÎÎñÓÅÏÈ¼¶*******************/
+/*******************è®¾ç½®ä»»åŠ¡ä¼˜å…ˆçº§*******************/
 #define TASK_EXTIHandler_PRIO               4
 #define TASK_MsgHandler_PRIO                5
 #define TASK_TIM2Hisr_PRIO              7
 
 
-/************ÉèÖÃÕ»´óĞ¡£¨µ¥Î»Îª OS_STK £©************/
+/************è®¾ç½®æ ˆå¤§å°ï¼ˆå•ä½ä¸º OS_STK ï¼‰************/
 #define TASK_EXTIHandler_STK_SIZE         80
 #define TASK_MsgHandler_STK_SIZE          80
 #define TASK_TIM2Hisr_STK_SIZE              80
@@ -51,7 +51,7 @@ extern OS_MEM MEM3_MCB;
 
 
 
-/**************** ÓÃ»§ÈÎÎñÉùÃ÷ *******************/
+/**************** ç”¨æˆ·ä»»åŠ¡å£°æ˜ *******************/
 extern void Task_EXTIHandler(void *p_arg);
 extern void Task_MsgHandler(void *p_arg);
 extern void Task_SoftTimerHisr(void *p_arg);

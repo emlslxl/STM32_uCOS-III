@@ -7,34 +7,34 @@ void DAC_Config(void)
     GPIO_InitTypeDef GPIO_InitStructure;
     DAC_InitTypeDef  DAC_InitStructure;
 
-    /* Ê¹ÄÜGPIOAÊ±ÖÓ */
+    /* ä½¿èƒ½GPIOAæ—¶é’Ÿ */
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 
-    /* Ê¹ÄÜDACÊ±ÖÓ */
+    /* ä½¿èƒ½DACæ—¶é’Ÿ */
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);
 
-    /* DACµÄGPIOÅäÖÃ£¬Ä£ÄâÊäÈë */
+    /* DACçš„GPIOé…ç½®ï¼Œæ¨¡æ‹Ÿè¾“å…¥ */
     GPIO_InitStructure.GPIO_Pin =  GPIO_Pin_4 | GPIO_Pin_5;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;
     GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 
 
-    /* ÅäÖÃDAC Í¨µÀ1 */
+    /* é…ç½®DAC é€šé“1 */
     DAC_InitStructure.DAC_Trigger = DAC_Trigger_Software;
-    DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;   //²»Ê¹ÓÃ²¨ĞÎ·¢ÉúÆ÷
-    DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Disable;    //²»Ê¹ÓÃDACÊä³ö»º³å
+    DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;   //ä¸ä½¿ç”¨æ³¢å½¢å‘ç”Ÿå™¨
+    DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Disable;    //ä¸ä½¿ç”¨DACè¾“å‡ºç¼“å†²
     DAC_Init(DAC_Channel_1, &DAC_InitStructure);
 
-    /* ÅäÖÃDAC Í¨µÀ2 */
+    /* é…ç½®DAC é€šé“2 */
     DAC_Init(DAC_Channel_2, &DAC_InitStructure);
 
-    /* Ê¹ÄÜÍ¨µÀ1 ÓÉPA4Êä³ö */
+    /* ä½¿èƒ½é€šé“1 ç”±PA4è¾“å‡º */
     DAC_Cmd(DAC_Channel_1, ENABLE);
-    /* Ê¹ÄÜÍ¨µÀ2 ÓÉPA5Êä³ö */
+    /* ä½¿èƒ½é€šé“2 ç”±PA5è¾“å‡º */
     DAC_Cmd(DAC_Channel_2, ENABLE);
 
-    /* Ê¹ÄÜDACµÄDMAÇëÇó */
+    /* ä½¿èƒ½DACçš„DMAè¯·æ±‚ */
     //DAC_DMACmd(DAC_Channel_2, ENABLE);
 }
 

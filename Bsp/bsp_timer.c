@@ -7,25 +7,25 @@ S_Timer_TCB gSoftTimer[TIMER_NUM];
 
 /*
  * TIM_Period / Auto Reload Register(ARR) = 10000   TIM_Prescaler--71
- * ÖĞ¶ÏÖÜÆÚÎª = 1/(72MHZ /72) * 10000 = 10ms
+ * ä¸­æ–­å‘¨æœŸä¸º = 1/(72MHZ /72) * 10000 = 10ms
  *
- * TIMxCLK/CK_PSC --> TIMxCNT --> TIM_Period(ARR) --> ÖĞ¶Ï ÇÒTIMxCNTÖØÖÃÎª0ÖØĞÂ¼ÆÊı
+ * TIMxCLK/CK_PSC --> TIMxCNT --> TIM_Period(ARR) --> ä¸­æ–­ ä¸”TIMxCNTé‡ç½®ä¸º0é‡æ–°è®¡æ•°
  */
 void TIM2_Configuration(void)
 {
     TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 
-    /* ÉèÖÃTIM2CLK Îª 72MHZ */
+    /* è®¾ç½®TIM2CLK ä¸º 72MHZ */
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
     //TIM_DeInit(TIM2);
 
-    /* ×Ô¶¯ÖØ×°ÔØ¼Ä´æÆ÷ÖÜÆÚµÄÖµ(¼ÆÊıÖµ) */
+    /* è‡ªåŠ¨é‡è£…è½½å¯„å­˜å™¨å‘¨æœŸçš„å€¼(è®¡æ•°å€¼) */
     TIM_TimeBaseStructure.TIM_Period = 10000;
 
-    /* ÀÛ¼Æ TIM_Period¸öÆµÂÊºó²úÉúÒ»¸ö¸üĞÂ»òÕßÖĞ¶Ï */     /* Ê±ÖÓÔ¤·ÖÆµÊıÎª72 */
+    /* ç´¯è®¡ TIM_Periodä¸ªé¢‘ç‡åäº§ç”Ÿä¸€ä¸ªæ›´æ–°æˆ–è€…ä¸­æ–­ */     /* æ—¶é’Ÿé¢„åˆ†é¢‘æ•°ä¸º72 */
     TIM_TimeBaseStructure.TIM_Prescaler = 71;
 
-    /* ¶ÔÍâ²¿Ê±ÖÓ½øĞĞ²ÉÑùµÄÊ±ÖÓ·ÖÆµ,ÕâÀïÃ»ÓĞÓÃµ½ */
+    /* å¯¹å¤–éƒ¨æ—¶é’Ÿè¿›è¡Œé‡‡æ ·çš„æ—¶é’Ÿåˆ†é¢‘,è¿™é‡Œæ²¡æœ‰ç”¨åˆ° */
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
@@ -37,7 +37,7 @@ void TIM2_Configuration(void)
 
     TIM_Cmd(TIM2, ENABLE);
 
-    /*ÏÈ¹Ø±ÕµÈ´ıÊ¹ÓÃ*/
+    /*å…ˆå…³é—­ç­‰å¾…ä½¿ç”¨*/
     //RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2 , DISABLE);
 }
 

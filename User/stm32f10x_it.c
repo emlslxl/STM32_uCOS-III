@@ -1,11 +1,11 @@
 /**
   ******************************************************************************
-  * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_it.c 
+  * @file    Project/STM32F10x_StdPeriph_Template/stm32f10x_it.c
   * @author  MCD Application Team
   * @version V3.5.0
   * @date    08-April-2011
   * @brief   Main Interrupt Service Routines.
-  *          This file provides template for all exceptions handler and 
+  *          This file provides template for all exceptions handler and
   *          peripherals interrupt service routine.
   ******************************************************************************
   * @attention
@@ -146,9 +146,9 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-	OSIntEnter(); 	 //”√”⁄Õ≥º∆÷–∂œµƒ«∂Ã◊≤„ ˝£¨∂‘«∂Ã◊≤„ ˝+1
-	OSTimeTick();	   //Õ≥º∆ ±º‰£¨±È¿˙»ŒŒÒ£¨∂‘—” ±»ŒŒÒº∆ ±ºı1
-	OSIntExit();	   //∂‘«∂Ã◊≤„ ˝ºı1£¨‘⁄ÕÀ≥ˆ÷–∂œ«∞∆Ù∂Ø»ŒŒÒµ˜∂»
+	OSIntEnter(); 	 //Áî®‰∫éÁªüËÆ°‰∏≠Êñ≠ÁöÑÂµåÂ•óÂ±ÇÊï∞ÔºåÂØπÂµåÂ•óÂ±ÇÊï∞+1
+	OSTimeTick();	   //ÁªüËÆ°Êó∂Èó¥ÔºåÈÅçÂéÜ‰ªªÂä°ÔºåÂØπÂª∂Êó∂‰ªªÂä°ËÆ°Êó∂Âáè1
+	OSIntExit();	   //ÂØπÂµåÂ•óÂ±ÇÊï∞Âáè1ÔºåÂú®ÈÄÄÂá∫‰∏≠Êñ≠ÂâçÂêØÂä®‰ªªÂä°Ë∞ÉÂ∫¶
 }
 
 /******************************************************************************/
@@ -164,7 +164,7 @@ void ADC1_2_IRQHandler(void)
     {
 
         ADC_ClearITPendingBit(ADC1,ADC_IT_EOC);
-        
+
 
     }
 }
@@ -176,14 +176,14 @@ void DMA1_Channel1_IRQHandler()
 {
     if(DMA_GetITStatus(DMA1_IT_TC1) == SET)
     {
-        
+
         ADC_Cmd(ADC1, DISABLE);
         DMA_ClearITPendingBit(DMA1_IT_TC1);
         printf("adc_value is %d\r\n",ADC1_Filter());
-        
+
     }
 
-    
+
 }
 
 /**
@@ -197,7 +197,7 @@ void USART1_IRQHandler(void)
   u8 *memblk;
   u8 getChar;
   u32 i,index;
-  
+
   if(USART_GetITStatus(USART1,USART_IT_RXNE) == SET)
   {
     USART_ClearITPendingBit(USART1,USART_IT_RXNE);
@@ -258,10 +258,10 @@ void USART1_IRQHandler(void)
             gUsart1RxStep = 0;
             gUsart1RxPoint = NULL;
             gUsart1RxState = USART1_RX_IDLE;
-            
-            OSTaskQPost(&MsgHandler_TCB,NULL,0,OS_OPT_POST_FIFO,&err);           
+
+            OSTaskQPost(&MsgHandler_TCB,NULL,0,OS_OPT_POST_FIFO,&err);
           }
-          
+
         }
         else
         {
@@ -284,7 +284,7 @@ void USART1_IRQHandler(void)
         gUsart1RxPoint = NULL;
         gUsart1RxState = USART1_RX_IDLE;
         break;
-    }  
+    }
   }
 }
 
@@ -292,7 +292,7 @@ void USART1_IRQHandler(void)
 void EXTI0_IRQHandler()
 {
     uint32 bit;
-	OSIntEnter(); 
+	OSIntEnter();
     if(EXTI_GetITStatus(EXTI_Line0) == SET)
     {
         EXTI_MaskIRQ(0);
@@ -325,7 +325,7 @@ void EXTI0_IRQHandler()
 void EXTI15_10_IRQHandler()
 {
     uint32 bit;
-	OSIntEnter(); 	 
+	OSIntEnter();
     if(EXTI_GetITStatus(EXTI_Line10) == SET)
     {
         if(gExtiTrigerFlag[10] == RISE_EDGE)
@@ -343,7 +343,7 @@ void EXTI15_10_IRQHandler()
             ExtiISR(10,FALLING_EDGE);
 
         }
-        
+
         EXTI_ClearITPendingBit(EXTI_Line10);
 
     }
@@ -390,7 +390,7 @@ void EXTI15_10_IRQHandler()
         EXTI_ClearITPendingBit(EXTI_Line15);
 
     }
-    
+
 	OSIntExit();
 
 }
@@ -402,12 +402,12 @@ void TIM2_IRQHandler()
     OS_ERR err;
     if(TIM_GetITStatus(TIM2,TIM_IT_Update) == SET)
     {
-        OSIntEnter(); 	
+        OSIntEnter();
     	OSTaskQPost(&TIM2Hisr_TCB,NULL,0,NULL,&err);
         TIM_ClearITPendingBit(TIM2 , TIM_FLAG_Update);
     	OSIntExit();
     }
-    
+
 }
 
 void RTC_IRQHandler(void)
@@ -423,7 +423,7 @@ void RTC_IRQHandler(void)
     RTC_WaitForLastTask();
     Time_Display();
     }
-    
+
     if (RTC_GetITStatus(RTC_IT_ALR) != RESET)
     {
     /* Clear the RTC Second interrupt */

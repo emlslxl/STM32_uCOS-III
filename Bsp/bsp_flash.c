@@ -31,67 +31,67 @@ u16 Flash_Write(u32 iAddress, u8 *buf, u32 iNbrToWrite)
     u16 res;
 
     FLASH_UnlockBank1();
-    addr = iAddress % FLASH_PAGE_SIZE; //ÉÈÇøµØÖ·
-    NumOfPage = iNbrToWrite / FLASH_PAGE_SIZE; //Ğ´ÈëÊı¾İÕ¼ÓÃ¼¸¸öÒ³
-    NumOfByte = iNbrToWrite % FLASH_PAGE_SIZE; //²»¹»Ò»Ò³µÄÊı¾İ×Ö½ÚÊı
-    PageRemain = FLASH_PAGE_SIZE - addr; //ÉÈÇøÊ£Óà¿Õ¼ä´óĞ¡
+    addr = iAddress % FLASH_PAGE_SIZE; //æ‰‡åŒºåœ°å€
+    NumOfPage = iNbrToWrite / FLASH_PAGE_SIZE; //å†™å…¥æ•°æ®å ç”¨å‡ ä¸ªé¡µ
+    NumOfByte = iNbrToWrite % FLASH_PAGE_SIZE; //ä¸å¤Ÿä¸€é¡µçš„æ•°æ®å­—èŠ‚æ•°
+    PageRemain = FLASH_PAGE_SIZE - addr; //æ‰‡åŒºå‰©ä½™ç©ºé—´å¤§å°
 
-    if (addr == 0) /* Ò³¶ÔÆë */
+    if (addr == 0) /* é¡µå¯¹é½ */
     {
-        if (NumOfPage == 0) /* Ö»ÓĞ1Ò³ */
+        if (NumOfPage == 0) /* åªæœ‰1é¡µ */
         {
-            res = FLASH_ErasePage(iAddress); //²Á³ıÕâ¸öÉÈÇø
+            res = FLASH_ErasePage(iAddress); //æ“¦é™¤è¿™ä¸ªæ‰‡åŒº
             res = Flash_Write_Without_check(iAddress, buf, iNbrToWrite);
         }
-        else  /* ´óÓÚ1Ò³ */
+        else  /* å¤§äº1é¡µ */
         {
             while (NumOfPage--)
             {
-                res = FLASH_ErasePage(iAddress); //²Á³ıÕâ¸öÉÈÇø
+                res = FLASH_ErasePage(iAddress); //æ“¦é™¤è¿™ä¸ªæ‰‡åŒº
                 res = Flash_Write_Without_check(iAddress, buf, FLASH_PAGE_SIZE);
                 iAddress += FLASH_PAGE_SIZE;
                 buf += FLASH_PAGE_SIZE;
             }
-            res = FLASH_ErasePage(iAddress); //²Á³ıÕâ¸öÉÈÇø
+            res = FLASH_ErasePage(iAddress); //æ“¦é™¤è¿™ä¸ªæ‰‡åŒº
             res = Flash_Write_Without_check(iAddress, buf, NumOfByte);
 
         }
 
     }
-    else  /* no Ò³¶ÔÆë  */
+    else  /* no é¡µå¯¹é½  */
     {
-        if (NumOfPage == 0) /* Êı¾İÁ¿Ğ¡ÓÚÒ»Ò³ */
+        if (NumOfPage == 0) /* æ•°æ®é‡å°äºä¸€é¡µ */
         {
-            if (NumOfByte > PageRemain) /* Êı¾İ´æ´¢¿çÒ³ÁË */
+            if (NumOfByte > PageRemain) /* æ•°æ®å­˜å‚¨è·¨é¡µäº† */
             {
-                res = FLASH_ErasePage(iAddress); //²Á³ıÕâ¸öÉÈÇø
+                res = FLASH_ErasePage(iAddress); //æ“¦é™¤è¿™ä¸ªæ‰‡åŒº
                 res = Flash_Write_Without_check(iAddress, buf, PageRemain);
                 iAddress += PageRemain;
                 buf += PageRemain;
                 temp = NumOfByte - PageRemain;
-                res = FLASH_ErasePage(iAddress); //²Á³ıÕâ¸öÉÈÇø
+                res = FLASH_ErasePage(iAddress); //æ“¦é™¤è¿™ä¸ªæ‰‡åŒº
                 res = Flash_Write_Without_check(iAddress, buf, temp);
             }
             else
             {
-                res = FLASH_ErasePage(iAddress); //²Á³ıÕâ¸öÉÈÇø
+                res = FLASH_ErasePage(iAddress); //æ“¦é™¤è¿™ä¸ªæ‰‡åŒº
                 res = Flash_Write_Without_check(iAddress, buf, iNbrToWrite);
             }
         }
-        else  /* Êı¾İÁ¿´óÓÚÒ»Ò³ */
+        else  /* æ•°æ®é‡å¤§äºä¸€é¡µ */
         {
             iNbrToWrite -= PageRemain;
             NumOfPage = iNbrToWrite / FLASH_PAGE_SIZE;
             NumOfByte = iNbrToWrite % FLASH_PAGE_SIZE;
 
-            res = FLASH_ErasePage(iAddress); //²Á³ıÕâ¸öÉÈÇø
+            res = FLASH_ErasePage(iAddress); //æ“¦é™¤è¿™ä¸ªæ‰‡åŒº
             res = Flash_Write_Without_check(iAddress, buf, PageRemain);
             iAddress += FLASH_PAGE_SIZE;
             buf += FLASH_PAGE_SIZE;
 
             while (NumOfPage--)
             {
-                res = FLASH_ErasePage(iAddress); //²Á³ıÕâ¸öÉÈÇø
+                res = FLASH_ErasePage(iAddress); //æ“¦é™¤è¿™ä¸ªæ‰‡åŒº
                 res = Flash_Write_Without_check(iAddress, buf, FLASH_PAGE_SIZE);
                 iAddress += FLASH_PAGE_SIZE;
                 buf += FLASH_PAGE_SIZE;
@@ -99,7 +99,7 @@ u16 Flash_Write(u32 iAddress, u8 *buf, u32 iNbrToWrite)
 
             if (NumOfByte != 0)
             {
-                res = FLASH_ErasePage(iAddress); //²Á³ıÕâ¸öÉÈÇø
+                res = FLASH_ErasePage(iAddress); //æ“¦é™¤è¿™ä¸ªæ‰‡åŒº
                 res = Flash_Write_Without_check(iAddress, buf, NumOfByte);
             }
         }

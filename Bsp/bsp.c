@@ -4,21 +4,21 @@ u32 ChipUniqueID[3];
 
 /**
   * @brief  Get_ChipID
-  * @param  ÎÞ
-  * @retval ÎÞ
+  * @param  æ— 
+  * @retval æ— 
   */
 void Get_ChipID(void)
 {
-    ChipUniqueID[0] = *(__IO u32 *)(0X1FFFF7F0); // ¸ß×Ö½Ú
+    ChipUniqueID[0] = *(__IO u32 *)(0X1FFFF7F0); // é«˜å­—èŠ‚
     ChipUniqueID[1] = *(__IO u32 *)(0X1FFFF7EC); //
-    ChipUniqueID[2] = *(__IO u32 *)(0X1FFFF7E8); // µÍ×Ö½Ú
+    ChipUniqueID[2] = *(__IO u32 *)(0X1FFFF7E8); // ä½Žå­—èŠ‚
 }
 
 /*
- * º¯ÊýÃû£ºBSP_Init
- * ÃèÊö  £ºÊ±ÖÓ³õÊ¼»¯¡¢Ó²¼þ³õÊ¼»¯
- * ÊäÈë  £ºÎÞ
- * Êä³ö  £ºÎÞ
+ * å‡½æ•°åï¼šBSP_Init
+ * æè¿°  ï¼šæ—¶é’Ÿåˆå§‹åŒ–ã€ç¡¬ä»¶åˆå§‹åŒ–
+ * è¾“å…¥  ï¼šæ— 
+ * è¾“å‡º  ï¼šæ— 
  */
 void BSP_Init(void)
 {
@@ -40,7 +40,7 @@ void BSP_Init(void)
         break;
     }
 
-    /* LED ¶Ë¿Ú³õÊ¼»¯ */
+    /* LED ç«¯å£åˆå§‹åŒ– */
     LED_GPIO_Config();
     //EXTI_Cfg();
 
@@ -56,17 +56,17 @@ void BSP_Init(void)
 }
 
 /*
- * º¯ÊýÃû£ºSysTick_init
- * ÃèÊö  £ºÅäÖÃSysTick¶¨Ê±Æ÷
- * ÊäÈë  £ºÎÞ
- * Êä³ö  £ºÎÞ
+ * å‡½æ•°åï¼šSysTick_init
+ * æè¿°  ï¼šé…ç½®SysTickå®šæ—¶å™¨
+ * è¾“å…¥  ï¼šæ— 
+ * è¾“å‡º  ï¼šæ— 
  */
 void SysTick_init(void)
 {
-    /* ³õÊ¼»¯²¢Ê¹ÄÜSysTick¶¨Ê±Æ÷ */
+    /* åˆå§‹åŒ–å¹¶ä½¿èƒ½SysTickå®šæ—¶å™¨ */
     SysTick_Config(SystemCoreClock / OS_CFG_TICK_RATE_HZ);
 
-    /*  ÅäÖÃ1ms ÖÐ¶ÏÒ»´Î£¬¼´osµÄÆµÂÊÎª1000hz */
+    /*  é…ç½®1ms ä¸­æ–­ä¸€æ¬¡ï¼Œå³osçš„é¢‘çŽ‡ä¸º1000hz */
     if (SysTick_Config(SystemCoreClock / OS_CFG_TICK_RATE_HZ))
     {
         /* Capture error */

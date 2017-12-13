@@ -26,15 +26,15 @@ typedef struct
     uint8_t LongitudeEW;
 
     uint16_t Altitude;
-    uint16_t Azimuth;     // º½Ïò½Ç
+    uint16_t Azimuth;     // èˆªå‘è§’
 
-    double Latitude;    // Ë«¾«¶È
+    double Latitude;    // åŒç²¾åº¦
     double Longitude;
 
-    uint32_t lat_upload; // ×ª»»³É¶È·ÖÃë
-    uint32_t lon_upload; // ×ª»»³É¶È·ÖÃë
+    uint32_t lat_upload; // è½¬æ¢æˆåº¦åˆ†ç§’
+    uint32_t lon_upload; // è½¬æ¢æˆåº¦åˆ†ç§’
 
-} GPSDATA; // ÉÏ´«Êı¾İ
+} GPSDATA; // ä¸Šä¼ æ•°æ®
 
 typedef struct
 {
@@ -45,4 +45,4 @@ typedef struct
     uint8_t mon;
     uint8_t year;
     uint8_t week;
-} TIME; // ±±¾©Ê±¼ä
+} TIME; // åŒ—äº¬æ—¶é—´

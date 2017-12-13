@@ -5,10 +5,10 @@
 //#define delayms(ms) Delay_us(ms)
 
 #define RDA5807M_SLAVE_ADDRESS 0x20
-uint8_t temp; // ÒôÁ¿
+uint8_t temp; // éŸ³é‡
 
 
-// RDA5807 ¼Ä´æÆ÷  Ğ´
+// RDA5807 å¯„å­˜å™¨  å†™
 uint8_t RDA_reg_data[8] =
 {
     0xd0, 0x00, // 02H
@@ -19,7 +19,7 @@ uint8_t RDA_reg_data[8] =
 
 /**********************************************************
 
- Á¬ĞøĞ´¼Ä´æÆ÷×Óº¯Êı
+ è¿ç»­å†™å¯„å­˜å™¨å­å‡½æ•°
 
 **********************************************************/
 void RDA5807_write_reg(void)
@@ -29,22 +29,22 @@ void RDA5807_write_reg(void)
 
     i2c_Start();
 
-    /* ·¢ËÍÉè±¸µØÖ·+¶ÁĞ´¿ØÖÆbit£¨0 = w£¬ 1 = r) bit7 ÏÈ´« */
+    /* å‘é€è®¾å¤‡åœ°å€+è¯»å†™æ§åˆ¶bitï¼ˆ0 = wï¼Œ 1 = r) bit7 å…ˆä¼  */
     i2c_SendByte(RDA5807M_SLAVE_ADDRESS | I2C_WR);
 
-    /* ¼ì²âACK */
+    /* æ£€æµ‹ACK */
     ucAck = i2c_WaitAck();
     if (ucAck == 1)
     {
         goto err_quit;
     }
 
-    // ¼Ä´æÆ÷Á¬ĞøĞ´²Ù×÷
+    // å¯„å­˜å™¨è¿ç»­å†™æ“ä½œ
     for (i = 0; i < 8; i++)
     {
         i2c_SendByte(RDA_reg_data[i]);
 
-        /* ¼ì²âACK */
+        /* æ£€æµ‹ACK */
         ucAck = i2c_WaitAck();
         if (ucAck == 1)
         {
@@ -58,7 +58,7 @@ err_quit:
 
 /**********************************************************
 
- Á¬Ğø¶Á¼Ä´æÆ÷×Óº¯Êı
+ è¿ç»­è¯»å¯„å­˜å™¨å­å‡½æ•°
 
 **********************************************************/
 void RDA5807_read_reg(uint8_t *reg_buf)
@@ -68,10 +68,10 @@ void RDA5807_read_reg(uint8_t *reg_buf)
 
     i2c_Start();
 
-    /* ·¢ËÍÉè±¸µØÖ·+¶ÁĞ´¿ØÖÆbit£¨0 = w£¬ 1 = r) bit7 ÏÈ´« */
+    /* å‘é€è®¾å¤‡åœ°å€+è¯»å†™æ§åˆ¶bitï¼ˆ0 = wï¼Œ 1 = r) bit7 å…ˆä¼  */
     i2c_SendByte(RDA5807M_SLAVE_ADDRESS | I2C_RD);
 
-    /* ¼ì²âACK */
+    /* æ£€æµ‹ACK */
     ucAck = i2c_WaitAck();
     if (ucAck == 1)
     {
@@ -97,21 +97,21 @@ err_quit:
 
 /**********************************************************
 
- Ä£¿éÉÏµç³õÊ¼»¯×Óº¯Êı
+ æ¨¡å—ä¸Šç”µåˆå§‹åŒ–å­å‡½æ•°
 
 **********************************************************/
 void RDA5807_power(void)
 {
     delayMs(50);
 
-    // ·¢ËÍÈí¼ş¸´Î»Ö¸Áî
+    // å‘é€è½¯ä»¶å¤ä½æŒ‡ä»¤
     RDA_reg_data[0] = 0x00;
     RDA_reg_data[1] = 0x02;
     RDA5807_write_reg();
 
     delayMs(10);
 
-    // ÊÕÒôÄ£¿éÄ¬ÈÏ²ÎÊı
+    // æ”¶éŸ³æ¨¡å—é»˜è®¤å‚æ•°
     RDA_reg_data[0] = 0xd0;
     RDA_reg_data[1] = 0x01;
     RDA5807_write_reg();
@@ -119,7 +119,7 @@ void RDA5807_power(void)
 
 /**********************************************************
 
- ¹¦ÄÜÃèÊö£ºÊÕÒôÄ£¿é×Ô¶¯Ñ°Ì¨Ä£Ê½
+ åŠŸèƒ½æè¿°ï¼šæ”¶éŸ³æ¨¡å—è‡ªåŠ¨å¯»å°æ¨¡å¼
 
 **********************************************************/
 void RDA5807_FM_seek(void)
@@ -127,28 +127,28 @@ void RDA5807_FM_seek(void)
     uint16_t chan;
     uint8_t  reg_data[4] = {0x00, 0x00, 0x00, 0x00};
 
-    RDA_reg_data[3] &= ~(1 << 4);      //µ÷Ğ³½ûÓÃ
+    RDA_reg_data[3] &= ~(1 << 4);      //è°ƒè°ç¦ç”¨
 
-    // ÄÚ²¿×Ô¶¯Ñ°Ì¨Ê¹ÄÜ
-    RDA_reg_data[0] |= (1 << 0);       //SEEKÎ»ÖÃ1
+    // å†…éƒ¨è‡ªåŠ¨å¯»å°ä½¿èƒ½
+    RDA_reg_data[0] |= (1 << 0);       //SEEKä½ç½®1
     RDA5807_write_reg();
 
-    // µÈ´ıSTC ±êÖ¾ÖÃÎ»
+    // ç­‰å¾…STC æ ‡å¿—ç½®ä½
     while (0 == (reg_data[0] & 0x40))
     {
         delayMs(40);
-        // ¶ÁÈ¡ÄÚ²¿×´Ì¬
+        // è¯»å–å†…éƒ¨çŠ¶æ€
         RDA5807_read_reg(reg_data);
 
     }
-    // »ñÈ¡µ±Ç°¹¤×÷Æµµã
+    // è·å–å½“å‰å·¥ä½œé¢‘ç‚¹
     chan = reg_data[0] & 0x03;
     chan = reg_data[1] | (chan << 8);
 
-    printf("\r\n Ñ°Ì¨³É¹¦ \r\n");
-    printf("µ±Ç°¹¤×÷ÆµµãÎª£º%d", chan);
+    printf("\r\n å¯»å°æˆåŠŸ \r\n");
+    printf("å½“å‰å·¥ä½œé¢‘ç‚¹ä¸ºï¼š%d", chan);
 
-    // ±£´æµ±Ç°¹¤×÷Æµµã
+    // ä¿å­˜å½“å‰å·¥ä½œé¢‘ç‚¹
     RDA_reg_data[2] = (chan >> 8) & 0xff;
     RDA_reg_data[3] = (chan & 0xff);
 }
@@ -176,41 +176,41 @@ void RDA5807_SetFreq(uint32 freq)
     chan = reg_data[0] & 0x03;
     chan = reg_data[1] | (chan << 8);
 
-    printf("µ±Ç°ÆµµãÎª : %d\r\n", chan);
+    printf("å½“å‰é¢‘ç‚¹ä¸º : %d\r\n", chan);
 
 }
 
 /**********************************************************
 
- ¹¦ÄÜÃèÊö£ºÊÕÒôÄ£¿é²âÊÔ
+ åŠŸèƒ½æè¿°ï¼šæ”¶éŸ³æ¨¡å—æµ‹è¯•
 
 **********************************************************/
 void RDA5807_FM_Test(void)
 {
 
-    printf("\r\n rda5807m ²âÊÔÊµÑé \r\n");
+    printf("\r\n rda5807m æµ‹è¯•å®éªŒ \r\n");
 
     if (i2c_CheckDevice(RDA5807M_SLAVE_ADDRESS) == 0)
     {
-        printf("\r\n rda5807m ¼ì²â³É¹¦ \r\n");
+        printf("\r\n rda5807m æ£€æµ‹æˆåŠŸ \r\n");
     }
     else
     {
-        printf("\r\n rda5807m ¼ì²â²»³É¹¦ \r\n");
+        printf("\r\n rda5807m æ£€æµ‹ä¸æˆåŠŸ \r\n");
     }
 
     RDA5807_power();
 
-    printf("\r\n ÉÏµç³É¹¦ \r\n");
+    printf("\r\n ä¸Šç”µæˆåŠŸ \r\n");
 
-    RDA_reg_data[7] = 131;   // 05H¼Ä´æÆ÷µÍËÄbit ¸Ä±äÒôÁ¿
+    RDA_reg_data[7] = 131;   // 05Hå¯„å­˜å™¨ä½å››bit æ”¹å˜éŸ³é‡
     RDA5807_write_reg();
 
-    temp = RDA_reg_data[7] & 0xff; //È¡ÒôÁ¿Öµ
-    printf("µ±Ç°ÒôÁ¿Îª%d", temp);
+    temp = RDA_reg_data[7] & 0xff; //å–éŸ³é‡å€¼
+    printf("å½“å‰éŸ³é‡ä¸º%d", temp);
 
     RDA_reg_data[0] |= (1 << 1);    //SEEK UP
-    //RDA5807_FM_seek();              //×Ô¶¯Ñ°Ì¨
+    //RDA5807_FM_seek();              //è‡ªåŠ¨å¯»å°
 
     RDA5807_SetFreq(876);
 }

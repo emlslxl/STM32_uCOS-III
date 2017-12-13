@@ -4,7 +4,7 @@ static int month_days[12] = {   31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 }
 
 #define FEBRUARY        2
 #define STARTOFTIME     1970
-#define SECDAY          86400L           /*  Ò»ÌìÓĞ¶àÉÙs */
+#define SECDAY          86400L           /*  ä¸€å¤©æœ‰å¤šå°‘s */
 #define SECYR           (SECDAY * 365)
 #define leapyear(year)      ((year) % 4 == 0)
 #define days_in_year(a)     (leapyear(a) ? 366 : 365)
@@ -17,7 +17,7 @@ struct rtc_time tm;
 /*
 ************************************************************************************************************************
 *
-* Description: ³õÊ¼»¯ÅäÖÃRTC
+* Description: åˆå§‹åŒ–é…ç½®RTC
 *
 * Arguments  : none
 *
@@ -52,7 +52,7 @@ void RTC_Configuration(void)
     RCC_RTCCLKCmd(ENABLE);
 
     /* Wait for RTC registers synchronization
-     * ÒòÎªRTCÊ±ÖÓÊÇµÍËÙµÄ£¬ÄÚ»·Ê±ÖÓÊÇ¸ßËÙµÄ£¬ËùÒÔÒªÍ¬²½
+     * å› ä¸ºRTCæ—¶é’Ÿæ˜¯ä½é€Ÿçš„ï¼Œå†…ç¯æ—¶é’Ÿæ˜¯é«˜é€Ÿçš„ï¼Œæ‰€ä»¥è¦åŒæ­¥
      */
     RTC_WaitForSynchro();
 
@@ -80,22 +80,22 @@ void to_tm(u32 tim, struct rtc_time *tm)
     register u32    i;
     register long   hms, day;
 
-    day = tim / SECDAY;         /* ÓĞ¶àÉÙÌì */
-    hms = tim % SECDAY;         /* ½ñÌìµÄÊ±¼ä£¬µ¥Î»s */
+    day = tim / SECDAY;         /* æœ‰å¤šå°‘å¤© */
+    hms = tim % SECDAY;         /* ä»Šå¤©çš„æ—¶é—´ï¼Œå•ä½s */
 
     /* Hours, minutes, seconds are easy */
     tm->tm_hour = hms / 3600;
     tm->tm_min = (hms % 3600) / 60;
     tm->tm_sec = (hms % 3600) % 60;
 
-    /* Number of years in days */ /*Ëã³öµ±Ç°Äê·İ£¬ÆğÊ¼µÄ¼ÆÊıÄê·İÎª1970Äê*/
+    /* Number of years in days */ /*ç®—å‡ºå½“å‰å¹´ä»½ï¼Œèµ·å§‹çš„è®¡æ•°å¹´ä»½ä¸º1970å¹´*/
     for (i = STARTOFTIME; day >= days_in_year(i); i++)
     {
         day -= days_in_year(i);
     }
     tm->tm_year = i;
 
-    /* Number of months in days left */ /*¼ÆËãµ±Ç°µÄÔÂ·İ*/
+    /* Number of months in days left */ /*è®¡ç®—å½“å‰çš„æœˆä»½*/
     if (leapyear(tm->tm_year))
     {
         days_in_month(FEBRUARY) = 29;
@@ -107,7 +107,7 @@ void to_tm(u32 tim, struct rtc_time *tm)
     days_in_month(FEBRUARY) = 28;
     tm->tm_mon = i;
 
-    /* Days are what is left over (+1) from all that. *//*¼ÆËãµ±Ç°ÈÕÆÚ*/
+    /* Days are what is left over (+1) from all that. *//*è®¡ç®—å½“å‰æ—¥æœŸ*/
     tm->tm_mday = day + 1;
 
     /*
@@ -120,10 +120,10 @@ void to_tm(u32 tim, struct rtc_time *tm)
 
 void Time_Display(void)
 {
-    to_tm(RTC_GetCounter(), &tm);/*°Ñ¶¨Ê±Æ÷µÄÖµ×ª»»Îª±±¾©Ê±¼ä*/
+    to_tm(RTC_GetCounter(), &tm);/*æŠŠå®šæ—¶å™¨çš„å€¼è½¬æ¢ä¸ºåŒ—äº¬æ—¶é—´*/
 
-    /* Êä³öÊ±¼ä´Á£¬¹«ÀúÊ±¼ä */
-    printf(" ¿ª»úÊ±¼ä:  %0.2d:%0.2d:%0.2d\r\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
+    /* è¾“å‡ºæ—¶é—´æˆ³ï¼Œå…¬å†æ—¶é—´ */
+    printf(" å¼€æœºæ—¶é—´:  %0.2d:%0.2d:%0.2d\r\n", tm.tm_hour, tm.tm_min, tm.tm_sec);
 }
 
 

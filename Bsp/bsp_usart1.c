@@ -4,13 +4,13 @@
   * @author  fire
   * @version V1.0
   * @date    2013-xx-xx
-  * @brief   usartÓ¦ÓÃbsp
+  * @brief   usartåº”ç”¨bsp
   ******************************************************************************
   * @attention
   *
-  * ÊµÑéÆ½Ì¨:Ò°»ğ iSO STM32 ¿ª·¢°å
-  * ÂÛÌ³    :http://www.chuxue123.com
-  * ÌÔ±¦    :http://firestm32.taobao.com
+  * å®éªŒå¹³å°:é‡ç« iSO STM32 å¼€å‘æ¿
+  * è®ºå›    :http://www.chuxue123.com
+  * æ·˜å®    :http://firestm32.taobao.com
   *
   ******************************************************************************
   */
@@ -21,9 +21,9 @@
 u8 gUsart1RxBuff[1024];
 
 /**
- * @brief  USART1 GPIO ÅäÖÃ,¹¤×÷Ä£Ê½ÅäÖÃ¡£9600 8-N-1
- * @param  ÎŞ
- * @retval ÎŞ
+ * @brief  USART1 GPIO é…ç½®,å·¥ä½œæ¨¡å¼é…ç½®ã€‚9600 8-N-1
+ * @param  æ— 
+ * @retval æ— 
  */
 void USART1_Config(void)
 {
@@ -53,7 +53,7 @@ void USART1_Config(void)
     USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
     USART_Init(USART1, &USART_InitStructure);
 
-    /* Ê¹ÄÜ´®¿Ú1½ÓÊÕÖĞ¶Ï */
+    /* ä½¿èƒ½ä¸²å£1æ¥æ”¶ä¸­æ–­ */
     USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
 
     USART_Cmd(USART1, ENABLE);
@@ -61,22 +61,22 @@ void USART1_Config(void)
 
 
 
-/// ÖØ¶¨Ïòc¿âº¯Êıprintfµ½USART1
+/// é‡å®šå‘cåº“å‡½æ•°printfåˆ°USART1
 int fputc(int ch, FILE *f)
 {
-    /* ·¢ËÍÒ»¸ö×Ö½ÚÊı¾İµ½USART1 */
+    /* å‘é€ä¸€ä¸ªå­—èŠ‚æ•°æ®åˆ°USART1 */
     USART_SendData(USART1, (uint8_t) ch);
 
-    /* µÈ´ı·¢ËÍÍê±Ï */
+    /* ç­‰å¾…å‘é€å®Œæ¯• */
     while (USART_GetFlagStatus(USART1, USART_FLAG_TXE) == RESET);
 
     return (ch);
 }
 
-/// ÖØ¶¨Ïòc¿âº¯Êıscanfµ½USART1
+/// é‡å®šå‘cåº“å‡½æ•°scanfåˆ°USART1
 int fgetc(FILE *f)
 {
-    /* µÈ´ı´®¿Ú1ÊäÈëÊı¾İ */
+    /* ç­‰å¾…ä¸²å£1è¾“å…¥æ•°æ® */
     while (USART_GetFlagStatus(USART1, USART_FLAG_RXNE) == RESET);
 
     return (int)USART_ReceiveData(USART1);
