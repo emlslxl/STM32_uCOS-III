@@ -1,5 +1,29 @@
 #include "board.h"
 
+
+/*********************************************
+*                延时函数
+*********************************************/
+/* 毫秒级精确延时 */
+__asm void
+SysCtlDelay(unsigned long ulCount)
+{
+    subs    r0, #1;
+    bne     SysCtlDelay;
+    bx      lr;
+}
+
+void delay_us(uint32_t delay)
+{
+    SysCtlDelay(delay * (SystemCoreClock / 6000000));
+}
+
+void delay_ms(uint32_t delay)
+{
+    SysCtlDelay(delay * (SystemCoreClock / 6000));
+}
+
+
 void rt_nvic_init(IRQn_Type irq, uint8_t PreemptionPriority, uint8_t SubPriority)
 {
     NVIC_InitTypeDef NVIC_InitStructure;
@@ -9,17 +33,6 @@ void rt_nvic_init(IRQn_Type irq, uint8_t PreemptionPriority, uint8_t SubPriority
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = SubPriority;
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
-}
-
-void rt_exti_init(uint32_t line, EXTIMode_TypeDef mode, EXTITrigger_TypeDef trigger, uint8_t flag)
-{
-    EXTI_InitTypeDef EXTI_InitStructure;
-
-    EXTI_InitStructure.EXTI_Line = line;
-    EXTI_InitStructure.EXTI_Mode = mode;
-    EXTI_InitStructure.EXTI_Trigger = trigger;
-    EXTI_InitStructure.EXTI_LineCmd = flag;
-    EXTI_Init(&EXTI_InitStructure);
 }
 
 void NVIC_Configuration(void)
@@ -62,6 +75,7 @@ void BSP_Init(void)
 
     bsp_gpio_init();
     bsp_uart_init();
+    rt_hw_spi_init(SPI2);
 
     switch (RCC_GetSYSCLKSource())
     {

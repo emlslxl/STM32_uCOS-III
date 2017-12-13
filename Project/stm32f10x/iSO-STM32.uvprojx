@@ -585,29 +585,29 @@
           <GroupName>Bsp</GroupName>
           <Files>
             <File>
-              <FileName>bsp_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_flash.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_uart.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_gpio.c</FilePath>
-            </File>
-            <File>
               <FileName>board.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Bsp\board.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_gpio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\drv_gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_uart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\drv_uart.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\drv_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_flash_gd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\spi_flash_gd.c</FilePath>
             </File>
           </Files>
         </Group>

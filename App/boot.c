@@ -9,7 +9,7 @@ void Task_BootHandler(void *p_arg)
 
     flag = ReadUpdateFlag();
     printf("\r\rupdate flag = %c\r\n", flag);
-
+    gd_init();
     if (flag == 'R')
     {
         iap_erase_app1();
@@ -30,13 +30,13 @@ void Task_BootHandler(void *p_arg)
     printf("\r\n");
     boot_jump_to_app1();
 
-    // while (1)
-    // {
-    //     rt_led_blue_on();
-    //     OSTimeDly(100, OS_OPT_TIME_DLY, &err);
-    //     rt_led_blue_off();
-    //     OSTimeDly(100, OS_OPT_TIME_DLY, &err);
-    // }
+    while (1)
+    {
+        rt_led_blue_on();
+        OSTimeDly(100, OS_OPT_TIME_DLY, &err);
+        rt_led_blue_off();
+        OSTimeDly(100, OS_OPT_TIME_DLY, &err);
+    }
 }
 
 /* -------------------------------------end of file------------------------------------ */
