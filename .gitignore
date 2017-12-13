@@ -13,6 +13,7 @@ build
 Debug
 Output
 list
+RTE
 *.html
 *.htm
 .vscode
@@ -27,5 +28,5 @@ list
 *.dblite
 *.txt
 *.ini
-project.uvguix.*
+*.uvguix.*
 *.uvoptx
