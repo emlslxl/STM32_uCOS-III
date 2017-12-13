@@ -3,8 +3,8 @@
 ;* Author             : MCD Application Team
 ;* Version            : V3.5.0
 ;* Date               : 11-March-2011
-;* Description        : STM32F10x Connectivity line devices vector table for MDK-ARM 
-;*                      toolchain. 
+;* Description        : STM32F10x Connectivity line devices vector table for MDK-ARM
+;*                      toolchain.
 ;*                      This module performs:
 ;*                      - Set the initial SP
 ;*                      - Set the initial PC == Reset_Handler
@@ -14,7 +14,7 @@
 ;*                        calls main()).
 ;*                      After Reset the CortexM3 processor is in Thread mode,
 ;*                      priority is Privileged, and the Stack is set to Main.
-;* <<< Use Configuration Wizard in Context Menu >>>   
+;* <<< Use Configuration Wizard in Context Menu >>>
 ;*******************************************************************************
 ; THE PRESENT FIRMWARE WHICH IS FOR GUIDANCE ONLY AIMS AT PROVIDING CUSTOMERS
 ; WITH CODING INFORMATION REGARDING THEIR PRODUCTS IN ORDER FOR THEM TO SAVE TIME.
@@ -72,7 +72,7 @@ __Vectors       DCD     __initial_sp               ; Top of Stack
                 DCD     SVC_Handler                ; SVCall Handler
                 DCD     DebugMon_Handler           ; Debug Monitor Handler
                 DCD     0                          ; Reserved
-                DCD     PendSV_Handler             ; PendSV Handler
+                DCD     OS_CPU_PendSVHandler             ; PendSV Handler
                 DCD     SysTick_Handler            ; SysTick Handler
 
                 ; External Interrupts
@@ -196,8 +196,8 @@ DebugMon_Handler\
                 EXPORT  DebugMon_Handler           [WEAK]
                 B       .
                 ENDP
-PendSV_Handler  PROC
-                EXPORT  PendSV_Handler             [WEAK]
+OS_CPU_PendSVHandler  PROC
+                EXPORT  OS_CPU_PendSVHandler             [WEAK]
                 B       .
                 ENDP
 SysTick_Handler PROC
@@ -341,16 +341,16 @@ OTG_FS_IRQHandler
 ; User Stack and Heap initialization
 ;*******************************************************************************
                  IF      :DEF:__MICROLIB
-                
+
                  EXPORT  __initial_sp
                  EXPORT  __heap_base
                  EXPORT  __heap_limit
-                
+
                  ELSE
-                
+
                  IMPORT  __use_two_region_memory
                  EXPORT  __user_initial_stackheap
-                 
+
 __user_initial_stackheap
 
                  LDR     R0, =  Heap_Mem

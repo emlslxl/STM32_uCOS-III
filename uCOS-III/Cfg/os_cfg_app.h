@@ -14,11 +14,11 @@
 *
 * LICENSING TERMS:
 * ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or 
+*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
 *           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your 
-*           application/product.   We provide ALL the source code for your convenience and to help you 
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use 
+*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
+*           application/product.   We provide ALL the source code for your convenience and to help you
+*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
 *           it commercially without paying a licensing fee.
 *
 *           Knowledge of the source code may NOT be used to develop a similar product.
@@ -61,7 +61,7 @@
 
 
                                                             /* ------------------------ TICKS ----------------------- */
-#define  OS_CFG_TICK_RATE_HZ            1000u               /* Tick rate in Hertz (10 to 1000 Hz)                     */
+#define  OS_CFG_TICK_RATE_HZ            100u               /* Tick rate in Hertz (10 to 1000 Hz)                     */
 #define  OS_CFG_TICK_TASK_PRIO            10u               /* Priority                                               */
 #define  OS_CFG_TICK_TASK_STK_SIZE       128u               /* Stack size (number of CPU_STK elements)                */
 #define  OS_CFG_TICK_WHEEL_SIZE           17u               /* Number of 'spokes' in tick  wheel; SHOULD be prime     */
