@@ -565,29 +565,14 @@
           <GroupName>App</GroupName>
           <Files>
             <File>
-              <FileName>app.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\App\app.c</FilePath>
-            </File>
-            <File>
-              <FileName>app.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\App\app.h</FilePath>
-            </File>
-            <File>
-              <FileName>os_cfg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\App\os_cfg.h</FilePath>
-            </File>
-            <File>
-              <FileName>os_cfg_app.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\App\os_cfg_app.h</FilePath>
-            </File>
-            <File>
               <FileName>rtos.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\App\rtos.c</FilePath>
+            </File>
+            <File>
+              <FileName>boot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\App\boot.c</FilePath>
             </File>
           </Files>
         </Group>

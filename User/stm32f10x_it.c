@@ -26,9 +26,9 @@
 
 
 
-u8 gUsart1RxState,gUsart1RxStep,gUsartRxOver;
+u8 gUsart1RxState, gUsart1RxStep, gUsartRxOver;
 u16 gUsart1RxLength;
-u8* gUsart1RxPoint;
+u8 *gUsart1RxPoint;
 
 #define USART1_RX_IDLE  0
 #define USART1_RX_BUSY  1
@@ -64,10 +64,10 @@ void NMI_Handler(void)
   */
 void HardFault_Handler(void)
 {
-  /* Go to infinite loop when Hard Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Hard Fault exception occurs */
+    while (1)
+    {
+    }
 }
 
 /**
@@ -77,10 +77,10 @@ void HardFault_Handler(void)
   */
 void MemManage_Handler(void)
 {
-  /* Go to infinite loop when Memory Manage exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Memory Manage exception occurs */
+    while (1)
+    {
+    }
 }
 
 /**
@@ -90,10 +90,10 @@ void MemManage_Handler(void)
   */
 void BusFault_Handler(void)
 {
-  /* Go to infinite loop when Bus Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Bus Fault exception occurs */
+    while (1)
+    {
+    }
 }
 
 /**
@@ -103,10 +103,10 @@ void BusFault_Handler(void)
   */
 void UsageFault_Handler(void)
 {
-  /* Go to infinite loop when Usage Fault exception occurs */
-  while (1)
-  {
-  }
+    /* Go to infinite loop when Usage Fault exception occurs */
+    while (1)
+    {
+    }
 }
 
 /**
@@ -145,9 +145,9 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
-	OSIntEnter(); 	 //用于统计中断的嵌套层数，对嵌套层数+1
-	OSTimeTick();	   //统计时间，遍历任务，对延时任务计时减1
-	OSIntExit();	   //对嵌套层数减1，在退出中断前启动任务调度
+    OSIntEnter();    //用于统计中断的嵌套层数，对嵌套层数+1
+    OSTimeTick();      //统计时间，遍历任务，对延时任务计时减1
+    OSIntExit();       //对嵌套层数减1，在退出中断前启动任务调度
 }
 
 /******************************************************************************/
