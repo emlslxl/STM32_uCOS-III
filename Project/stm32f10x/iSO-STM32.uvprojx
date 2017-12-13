@@ -595,59 +595,14 @@
           <GroupName>Bsp</GroupName>
           <Files>
             <File>
-              <FileName>bsp_led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_led.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\Bsp\bsp_led.h</FilePath>
-            </File>
-            <File>
               <FileName>bsp_flash.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Bsp\bsp_flash.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_dac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_dac.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>bsp_timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Bsp\bsp_timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_exti.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_delay.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_delay.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_rda5807m.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_rda5807m.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_i2c_gpio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_i2c_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\Bsp\bsp_rtc.c</FilePath>
             </File>
             <File>
               <FileName>bsp_uart.c</FileName>

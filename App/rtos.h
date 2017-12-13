@@ -8,7 +8,7 @@
 
 /********************控制块外部声明*******************/
 extern OS_TCB   MsgHandler_TCB;
-extern OS_TCB   EXTIHandler_TCB;
+extern OS_TCB   BootHandler_TCB;
 extern OS_TCB   TIM2Hisr_TCB;
 
 
@@ -32,14 +32,12 @@ extern OS_MEM MEM3_MCB;
 
 
 /*******************设置任务优先级*******************/
-#define TASK_EXTIHandler_PRIO               4
-#define TASK_MsgHandler_PRIO                5
+#define TASK_BootHandler_PRIO               4
 #define TASK_TIM2Hisr_PRIO              7
 
 
 /************设置栈大小（单位为 OS_STK ）************/
-#define TASK_EXTIHandler_STK_SIZE         80
-#define TASK_MsgHandler_STK_SIZE          80
+#define TASK_BootHandler_STK_SIZE         80
 #define TASK_TIM2Hisr_STK_SIZE              80
 
 
@@ -52,8 +50,7 @@ extern OS_MEM MEM3_MCB;
 
 
 /**************** 用户任务声明 *******************/
-extern void Task_EXTIHandler(void *p_arg);
-extern void Task_MsgHandler(void *p_arg);
+extern void Task_BootHandler(void *p_arg);
 extern void Task_SoftTimerHisr(void *p_arg);
 
 

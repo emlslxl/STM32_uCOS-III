@@ -4,11 +4,8 @@
 OS_TCB  TIM2Hisr_TCB;
 static  CPU_STK TIM2Hisr_Stk[TASK_TIM2Hisr_STK_SIZE];
 
-OS_TCB  EXTIHandler_TCB;
-static  CPU_STK EXTIHandler_Stk[TASK_EXTIHandler_STK_SIZE];
-
-OS_TCB  MsgHandler_TCB;
-static  CPU_STK MsgHandler_Stk[TASK_MsgHandler_STK_SIZE];
+OS_TCB  BootHandler_TCB;
+static  CPU_STK BootHandler_Stk[TASK_BootHandler_STK_SIZE];
 
 
 /******************for memroy***********************/
@@ -142,37 +139,20 @@ void RTOS_CreateTask()
 {
     OS_ERR err;
     /*创建外部中断处理任务  */
-    OSTaskCreate((OS_TCB *)&EXTIHandler_TCB,                                   /* 任务控制块指针 */
-                 (CPU_CHAR *)"EXTIHandler",                                      /* 任务名称  */
-                 (OS_TASK_PTR)Task_EXTIHandler,                              /* 任务代码指针  */
+    OSTaskCreate((OS_TCB *)&BootHandler_TCB,                                   /* 任务控制块指针 */
+                 (CPU_CHAR *)"BootHandler",                                      /* 任务名称  */
+                 (OS_TASK_PTR)Task_BootHandler,                              /* 任务代码指针  */
                  (void *)0,                                               // 传递给任务的参数parg
-                 (OS_PRIO)TASK_EXTIHandler_PRIO,                             // 任务优先级
-                 (CPU_STK *)&EXTIHandler_Stk[0],                           // 任务堆栈基地址
-                 (CPU_STK_SIZE)TASK_EXTIHandler_STK_SIZE / 10,         // 堆栈剩余警戒线
-                 (CPU_STK_SIZE)TASK_EXTIHandler_STK_SIZE,                  // 堆栈大小
+                 (OS_PRIO)TASK_BootHandler_PRIO,                             // 任务优先级
+                 (CPU_STK *)&BootHandler_Stk[0],                           // 任务堆栈基地址
+                 (CPU_STK_SIZE)TASK_BootHandler_STK_SIZE / 10,         // 堆栈剩余警戒线
+                 (CPU_STK_SIZE)TASK_BootHandler_STK_SIZE,                  // 堆栈大小
                  (OS_MSG_QTY)10,                                              // 可接收的最大消息队列数
                  (OS_TICK)0,                                              // 时间片轮转时间
                  (void *)0,                                               // 任务控制块扩展信息
                  (OS_OPT)(OS_OPT_TASK_STK_CHK |
                           OS_OPT_TASK_STK_CLR),         // 任务选项
                  (OS_ERR *)&err);                                       // 返回值
-
-    //创建消息处理任务
-    OSTaskCreate((OS_TCB *)&MsgHandler_TCB,
-                 (CPU_CHAR *)"MsgHandler",
-                 (OS_TASK_PTR)Task_MsgHandler,
-                 (void *)0,
-                 (OS_PRIO)TASK_MsgHandler_PRIO,
-                 (CPU_STK *)&MsgHandler_Stk[0],
-                 (CPU_STK_SIZE)TASK_MsgHandler_STK_SIZE / 10,
-                 (CPU_STK_SIZE)TASK_MsgHandler_STK_SIZE,
-                 (OS_MSG_QTY)10,
-                 (OS_TICK)0,
-                 (void *)0,
-                 (OS_OPT)(OS_OPT_TASK_STK_CHK |
-                          OS_OPT_TASK_STK_CLR),
-                 (OS_ERR *)&err);
-
 
 
     OSTaskCreate((OS_TCB *)&TIM2Hisr_TCB,                                   // 任务控制块指针

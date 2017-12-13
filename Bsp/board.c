@@ -33,12 +33,7 @@ void NVIC_Configuration(void)
 #endif
 }
 
-/*
- * 函数名：SysTick_init
- * 描述  ：配置SysTick定时器
- * 输入  ：无
- * 输出  ：无
- */
+
 void SysTick_init(void)
 {
     /* 初始化并使能SysTick定时器 */

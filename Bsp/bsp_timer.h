@@ -1,7 +1,7 @@
 #ifndef _BSP_TIMER_H_
 #define _BSP_TIMER_H_
 
-#include "global.h"
+#include "board.h"
 
 #define IDLE    0
 #define BUSY    1

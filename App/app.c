@@ -58,21 +58,6 @@
  *----------------------------------------------*/
 
 
-void Task_EXTIHandler(void *p_arg)
-{
-    OS_ERR err;
-
-    (void)p_arg;
-
-    while (1)
-    {
-        OSTaskQPend(0, OS_OPT_PEND_BLOCKING, 0, NULL, &err);
-        ExtiHisr();
-
-    }
-}
-
-
 /*****************************************************************************
  Prototype    : Task_SoftTimerHisr
  Description  : sotftimer
@@ -101,50 +86,24 @@ void Task_SoftTimerHisr(void *p_arg)
 }
 
 
-void Task_MsgHandler(void *p_arg)
+void Task_BootHandler(void *p_arg)
 {
-    u16 len, MsgId;
     OS_ERR err;
-    u8 *memblk;
     (void)p_arg;
-
 
     while (1)
     {
-        memblk = (u8 *)OSTaskQPend(0, OS_OPT_PEND_BLOCKING, &len, 0, &err);
-
-        MsgId = memblk[0];
-
-        switch (MsgId)
-        {
-        case Write_Flash_REQ:
-            TestWriteFlash();
-            printf("ok\r\n");
-            break;
-        case Write_DAC_REQ:
-            DAC_WriteData(memblk);
-            break;
-        case Read_ADC_REQ:
-            ADC1_SingleConvert(memblk);
-            break;
-        default:
-            break;
-        }
-
-        FreeMem(memblk);
-        OSTimeDlyHMSM(0, 0, 0, 200, OS_OPT_TIME_HMSM_STRICT, &err);
+        rt_led_blue_on();
+        OSTimeDly(100, OS_OPT_TIME_DLY, &err);
+        rt_led_blue_off();
+        OSTimeDly(100, OS_OPT_TIME_DLY, &err);
     }
 }
-
-
-
-
 
 void CallBack()
 {
     printf(" CallBack\r\n");
 
 }
-
 
 /* -------------------------------------end of file------------------------------------ */
