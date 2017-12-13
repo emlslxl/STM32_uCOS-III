@@ -14,11 +14,11 @@
 *
 * LICENSING TERMS:
 * ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or 
+*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
 *           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your 
-*           application/product.   We provide ALL the source code for your convenience and to help you 
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use 
+*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
+*           application/product.   We provide ALL the source code for your convenience and to help you
+*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
 *           it commercially without paying a licensing fee.
 *
 *           Knowledge of the source code may NOT be used to develop a similar product.
@@ -60,7 +60,7 @@
 
 
                                              /* -------------------------- MEMORY MANAGEMENT ------------------------ */
-#define OS_CFG_MEM_EN                   1u   /* Enable (1) or Disable (0) code generation for MEMORY MANAGER          */
+#define OS_CFG_MEM_EN                   0u   /* Enable (1) or Disable (0) code generation for MEMORY MANAGER          */
 
 
                                              /* --------------------- MUTUAL EXCLUSION SEMAPHORES ------------------- */
@@ -84,12 +84,12 @@
 
 
                                              /* -------------------------- TASK MANAGEMENT -------------------------- */
-#define OS_CFG_STAT_TASK_EN             1u   /* Enable (1) or Disable(0) the statistics task                          */
+#define OS_CFG_STAT_TASK_EN             0u   /* Enable (1) or Disable(0) the statistics task                          */
 #define OS_CFG_STAT_TASK_STK_CHK_EN     1u   /* Check task stacks from statistic task                                 */
 
 #define OS_CFG_TASK_CHANGE_PRIO_EN      0u   /* Include code for OSTaskChangePrio()                                   */
 #define OS_CFG_TASK_DEL_EN              0u   /* Include code for OSTaskDel()                                          */
-#define OS_CFG_TASK_Q_EN                1u   /* Include code for OSTaskQXXXX()                                        */
+#define OS_CFG_TASK_Q_EN                0u   /* Include code for OSTaskQXXXX()                                        */
 #define OS_CFG_TASK_Q_PEND_ABORT_EN     0u   /* Include code for OSTaskQPendAbort()                                   */
 #define OS_CFG_TASK_PROFILE_EN          0u   /* Include variables in OS_TCB for profiling                             */
 #define OS_CFG_TASK_REG_TBL_SIZE        0u   /* Number of task specific registers                                     */
@@ -98,12 +98,12 @@
 
 
                                              /* -------------------------- TIME MANAGEMENT -------------------------- */
-#define OS_CFG_TIME_DLY_HMSM_EN         1u   /*     Include code for OSTimeDlyHMSM()                                  */
+#define OS_CFG_TIME_DLY_HMSM_EN         0u   /*     Include code for OSTimeDlyHMSM()                                  */
 #define OS_CFG_TIME_DLY_RESUME_EN       0u   /*     Include code for OSTimeDlyResume()                                */
 
 
                                              /* ------------------------- TIMER MANAGEMENT -------------------------- */
-#define OS_CFG_TMR_EN                   1u   /* Enable (1) or Disable (0) code generation for TIMERS                  */
+#define OS_CFG_TMR_EN                   0u   /* Enable (1) or Disable (0) code generation for TIMERS                  */
 #define OS_CFG_TMR_DEL_EN               0u   /* Enable (1) or Disable (0) code generation for OSTmrDel()              */
 
 #endif
