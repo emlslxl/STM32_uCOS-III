@@ -10,7 +10,6 @@ int main(void)
 
     /* 初始化"uC/OS-III"内核 */
     OSInit(&err);
-    printf("OS Start!!\r\n");
 
     RTOS_CreateTask();
 

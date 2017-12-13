@@ -574,6 +574,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\App\boot.c</FilePath>
             </File>
+            <File>
+              <FileName>app_iap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\App\app_iap.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

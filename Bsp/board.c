@@ -66,13 +66,13 @@ void BSP_Init(void)
     switch (RCC_GetSYSCLKSource())
     {
     case 0x00 :
-        printf("\r\n HSI used as system clock.\r\n");
+        printf("\r\nHSI used as system clock.\r\n");
         break;
     case 0x04 :
-        printf("\r\n HSE used as system clock.\r\n");
+        printf("\r\nHSE used as system clock.\r\n");
         break;
     case 0x08 :
-        printf("\r\n PLL used as system clock.\r\n");
+        printf("\r\nPLL used as system clock.\r\n");
         break;
 
     default:
