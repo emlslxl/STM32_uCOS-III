@@ -76,7 +76,6 @@ void BSP_Init(void)
     bsp_gpio_init();
     bsp_uart_init();
     bsp_spi2_init();
-    gd_init();
 
     switch (RCC_GetSYSCLKSource())
     {
@@ -94,6 +93,8 @@ void BSP_Init(void)
         printf("\r\n * unkonwn clock soure. *");
         break;
     }
+
+    gd_init();
 }
 
 

@@ -1,5 +1,25 @@
 #include "boot.h"
 #include "app_iap.h"
+#include "ff.h"
+FATFS fs[1];
+
+void fatfs_init(void)
+{
+    FRESULT res = 0;
+    FIL fd;
+
+    res = f_mount(&fs[0], "0:/", 0);
+    if (res != FR_OK)
+        printf("f_mount failed res = %d\r\n", res);
+    else
+        printf("f_mount success\r\n");
+
+    res = f_open(&fd, "0:/log.txt", FA_OPEN_EXISTING);
+    if (res != FR_OK)
+        printf("f_open failed res = %d\r\n", res);
+    else
+        printf("f_open success\r\n");
+}
 
 void Task_BootHandler(void *p_arg)
 {
@@ -9,6 +29,8 @@ void Task_BootHandler(void *p_arg)
 
     flag = ReadUpdateFlag();
     printf("\r\rupdate flag = %c\r\n", flag);
+
+    fatfs_init();
 
     if (flag == 'R')
     {

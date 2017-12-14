@@ -415,9 +415,6 @@ uint32_t gd_init(void)
         FLASH_TRACE("Memory Capacity error!\r\n");
         return 0;
     }
-
-    test_write();
-    test_read();
 }
 
 
