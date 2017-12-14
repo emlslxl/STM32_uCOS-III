@@ -11,9 +11,8 @@ struct spi_flash_device  spi_flash_device;
 #endif /* #ifdef FLASH_DEBUG */
 
 
-/* JEDEC Manufacturer's ID */
+#define PAGE_SIZE           4096
 #define MF_ID           (0xC8)
-/* JEDEC Device ID: Memory type and Capacity */
 #define MTC_GD25Q128                (0x4018)
 
 
@@ -275,84 +274,84 @@ void w25qxx_wait_busy(void)
     while (sFLASH_NOR_ReadLowSR() & (0x01));
 }
 
-// uint32_t w25qxx_flash_control(uint8_t cmd, void *args)
-// {
+uint32_t w25qxx_flash_control(uint8_t cmd, void *args)
+{
 
-//     if (cmd == RT_DEVICE_CTRL_BLK_GETGEOME)
-//     {
-//         struct rt_device_blk_geometry *geometry;
+    if (cmd == RT_DEVICE_CTRL_BLK_GETGEOME)
+    {
+        struct rt_device_blk_geometry *geometry;
 
-//         geometry = (struct rt_device_blk_geometry *)args;
-//         if (geometry == NULL) return -RT_ERROR;
+        geometry = (struct rt_device_blk_geometry *)args;
+        if (geometry == NULL) return -RT_ERROR;
 
-//         geometry->bytes_per_sector = spi_flash_device.geometry.bytes_per_sector;
-//         geometry->sector_count = spi_flash_device.geometry.sector_count;
-//         geometry->block_size = spi_flash_device.geometry.block_size;
-//     }
+        geometry->bytes_per_sector = spi_flash_device.geometry.bytes_per_sector;
+        geometry->sector_count = spi_flash_device.geometry.sector_count;
+        geometry->block_size = spi_flash_device.geometry.block_size;
+    }
 
-//     return RT_EOK;
-// }
-
-
-// uint32_t w25qxx_read(uint32_t offset, uint8_t *buffer, uint32_t size)
-// {
-//     sFLASH_NOR_Read(buffer, offset, size);
-
-//     return size;
-// }
-
-// uint32_t w25qxx_flash_read(uint32_t pos,
-//                            void *buffer,
-//                            uint32_t size)
-// {
-//     w25qxx_read(pos * spi_flash_device.geometry.bytes_per_sector,
-//                 buffer,
-//                 size * spi_flash_device.geometry.bytes_per_sector);
-
-//     return size;
-// }
+    return RT_EOK;
+}
 
 
+uint32_t w25qxx_read(uint32_t offset, uint8_t *buffer, uint32_t size)
+{
+    sFLASH_NOR_Read(buffer, offset, size);
 
-// uint32_t w25qxx_page_write(uint32_t page_addr, uint8_t *buffer)
-// {
-//     uint32_t index;
-//     uint8_t send_buffer[4];
+    return size;
+}
 
-//     sFLASH_NOR_SectorErase(page_addr);   //ERASE 4K
+uint32_t w25qxx_flash_read(uint32_t pos,
+                           void *buffer,
+                           uint32_t size)
+{
+    w25qxx_read(pos * spi_flash_device.geometry.bytes_per_sector,
+                buffer,
+                size * spi_flash_device.geometry.bytes_per_sector);
 
-//     w25qxx_wait_busy(); // wait erase done.
+    return size;
+}
 
-//     for (index = 0; index < (PAGE_SIZE / 256); index++)
-//     {
-//         sFLASH_NOR_Pageprogram(buffer, page_addr, 256);
 
-//         buffer += 256;
-//         page_addr += 256;
-//         w25qxx_wait_busy();
-//     }
 
-//     return PAGE_SIZE;
-// }
+uint32_t w25qxx_page_write(uint32_t page_addr, uint8_t *buffer)
+{
+    uint32_t index;
+    uint8_t send_buffer[4];
 
-// uint32_t w25qxx_flash_write(uint32_t pos,
-//                             void *buffer,
-//                             uint32_t size)
-// {
-//     uint32_t i = 0;
-//     uint32_t block = size;
-//     uint8_t *ptr = buffer;
+    sFLASH_NOR_SectorErase(page_addr);   //ERASE 4K
 
-//     while (block--)
-//     {
-//         w25qxx_page_write((pos + i)*spi_flash_device.geometry.bytes_per_sector,
-//                           ptr);
-//         ptr += PAGE_SIZE;
-//         i++;
-//     }
+    w25qxx_wait_busy(); // wait erase done.
 
-//     return size;
-// }
+    for (index = 0; index < (PAGE_SIZE / 256); index++)
+    {
+        sFLASH_NOR_Pageprogram(buffer, page_addr, 256);
+
+        buffer += 256;
+        page_addr += 256;
+        w25qxx_wait_busy();
+    }
+
+    return PAGE_SIZE;
+}
+
+uint32_t w25qxx_flash_write(uint32_t pos,
+                            void *buffer,
+                            uint32_t size)
+{
+    uint32_t i = 0;
+    uint32_t block = size;
+    uint8_t *ptr = buffer;
+
+    while (block--)
+    {
+        w25qxx_page_write((pos + i)*spi_flash_device.geometry.bytes_per_sector,
+                          ptr);
+        ptr += PAGE_SIZE;
+        i++;
+    }
+
+    return size;
+}
 
 uint8_t read_tmp[4096] = {0};
 //test
@@ -400,8 +399,8 @@ uint32_t gd_init(void)
         return 0;
     }
 
-    // spi_flash_device.geometry.bytes_per_sector = 4096;
-    // spi_flash_device.geometry.block_size = 4096; /* block erase: 4k */
+    spi_flash_device.geometry.bytes_per_sector = 4096;
+    spi_flash_device.geometry.block_size = 4096; /* block erase: 4k */
 
     /* get memory type and capacity */
     memory_type_capacity = id_recv & 0xffff;
@@ -409,7 +408,7 @@ uint32_t gd_init(void)
     if (memory_type_capacity == MTC_GD25Q128)
     {
         FLASH_TRACE("GD128 detection\r\n");
-        // spi_flash_device.geometry.sector_count = 4096;
+        spi_flash_device.geometry.sector_count = 4096;
     }
     else
     {
