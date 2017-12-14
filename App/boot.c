@@ -9,7 +9,7 @@ void Task_BootHandler(void *p_arg)
 
     flag = ReadUpdateFlag();
     printf("\r\rupdate flag = %c\r\n", flag);
-    gd_init();
+
     if (flag == 'R')
     {
         iap_erase_app1();
