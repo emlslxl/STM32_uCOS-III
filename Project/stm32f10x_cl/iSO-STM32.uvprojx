@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_CL, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS;..\..\Libraries\FWlib\inc;..\..\App;..\..\Bsp;..\..\User;..\..\uCOS-III\Source;..\..\uCOS-III\Ports;..\..\uCOS-III\uC-CPU;..\..\uCOS-III\Cfg;..\..\uCOS-III\uC-LIB</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS;..\..\Libraries\FWlib\inc;..\..\App;..\..\Bsp;..\..\User;..\..\uCOS-III\Source;..\..\uCOS-III\Ports;..\..\uCOS-III\uC-CPU;..\..\uCOS-III\Cfg;..\..\uCOS-III\uC-LIB;..\..\fatfs</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -578,6 +578,11 @@
               <FileName>app_iap.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\App\app_iap.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_file.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\App\app_file.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -843,6 +848,26 @@
               <FileName>os_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\uCOS-III\Cfg\os_cfg.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>fatfs</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\fatfs\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\fatfs\ff.c</FilePath>
+            </File>
+            <File>
+              <FileName>ffsystem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\fatfs\ffsystem.c</FilePath>
             </File>
           </Files>
         </Group>
