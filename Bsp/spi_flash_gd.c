@@ -10,6 +10,7 @@ struct spi_flash_device  spi_flash_device;
 #define FLASH_TRACE(fmt, ...)
 #endif /* #ifdef FLASH_DEBUG */
 
+
 /* JEDEC Manufacturer's ID */
 #define MF_ID           (0xC8)
 /* JEDEC Device ID: Memory type and Capacity */
@@ -20,27 +21,6 @@ struct spi_flash_device  spi_flash_device;
 
 #define TIMEOUT 1000
 
-#define sFLASH_SPI                       SPI2
-#define sFLASH_SPI_CLK                   RCC_APB1Periph_SPI2
-
-#define sFLASH_SPI_SCK_PIN               GPIO_Pin_13                  /* PA.05 */
-#define sFLASH_SPI_SCK_GPIO_PORT         GPIOB                       /* GPIOA */
-#define sFLASH_SPI_SCK_GPIO_CLK          RCC_APB2Periph_GPIOB
-
-#define sFLASH_SPI_MISO_PIN              GPIO_Pin_14                  /* PA.06 */
-#define sFLASH_SPI_MISO_GPIO_PORT        GPIOB                       /* GPIOA */
-#define sFLASH_SPI_MISO_GPIO_CLK         RCC_APB2Periph_GPIOB
-
-#define sFLASH_SPI_MOSI_PIN              GPIO_Pin_15                  /* PA.07 */
-#define sFLASH_SPI_MOSI_GPIO_PORT        GPIOB                       /* GPIOA */
-#define sFLASH_SPI_MOSI_GPIO_CLK         RCC_APB2Periph_GPIOB
-
-#define sFLASH_CS_PIN                    GPIO_Pin_12                  /* PA.02 */
-#define sFLASH_CS_GPIO_PORT              GPIOB                       /* GPIOA */
-#define sFLASH_CS_GPIO_CLK               RCC_APB2Periph_GPIOB
-
-#define sFLASH_CS_LOW()       GPIO_ResetBits(sFLASH_CS_GPIO_PORT, sFLASH_CS_PIN)
-#define sFLASH_CS_HIGH()      GPIO_SetBits(sFLASH_CS_GPIO_PORT, sFLASH_CS_PIN)
 
 #define sFLASH_CMD_NOR_WRITE          0x02  /*!< Write to Memory instruction */
 #define sFLASH_CMD_NOR_WRSR           0x01  /*!< Write Status Register instruction */
@@ -58,14 +38,6 @@ struct spi_flash_device  spi_flash_device;
 
 #define sFLASH_WIP_FLAG           0x01  /*!< Write In Progress (WIP) flag */
 
-static void delay_ms1(uint32_t ms)
-{
-    uint32_t i = 0;
-
-    i = ms * 10000;
-
-    for (; i > 0; i--);
-}
 
 
 void sFLASH_Hardware_Init(void)
@@ -168,7 +140,6 @@ void sFLASH_WriteDisable(void)
 void sFLASH_NOR_WaitForWriteEnd(void)
 {
     uint8_t flashstatus = 0;
-    uint32_t begin_time = 0;
 
     /*!< Select the FLASH: Chip Select low */
     sFLASH_CS_LOW();
@@ -182,10 +153,6 @@ void sFLASH_NOR_WaitForWriteEnd(void)
         /*!< Send a dummy byte to generate the clock needed by the FLASH
         and put the value of the status register in FLASH_Status variable */
         flashstatus = sFLASH_SendByte(sFLASH_CMD_NOR_RDSR);
-
-        // begin_time++;
-
-        // delay_ms1(10);
     }
     while ((flashstatus & sFLASH_WIP_FLAG) == SET); /* Write in progress */
 
@@ -394,8 +361,8 @@ void test_read()
     uint32_t i = 0;
 
     // w25qxx_flash_read(0, read_tmp, 1);
-    sFLASH_NOR_Read(read_tmp, 30 * 4096, 256);
-    for (i = 0; i < 256; i++)
+    sFLASH_NOR_Read(read_tmp, 30 * 4096, 1024);
+    for (i = 0; i < 1024; i++)
     {
         printf("%02d ", read_tmp[i]);
     }
@@ -413,18 +380,15 @@ void test_write()
     }
 
     sFLASH_NOR_SectorErase(30 * 4096);
-    delay_ms1(100);
     sFLASH_NOR_Pageprogram(test_tmp, 30 * 4096, 256);
     // w25qxx_flash_write(0, test_tmp, 1);
 }
 
 
-uint32_t gdgd_init(void)
+uint32_t gd_init(void)
 {
     uint32_t id_recv;
     uint16_t memory_type_capacity;
-
-    sFLASH_Hardware_Init();
 
     /* read flash id */
     id_recv = sFLASH_NOR_ReadID();

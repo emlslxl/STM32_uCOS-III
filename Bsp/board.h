@@ -8,6 +8,7 @@
 #include "stm32f10x.h"
 
 #include "drv_gpio.h"
+#include "drv_spi.h"
 
 #define RT_EOK                          0               /**< There is no error */
 #define RT_ERROR                        1               /**< A generic error happens */

@@ -13,6 +13,7 @@ void rt_gpio_set_mode(GPIO_TypeDef *port, uint16_t pin,
 
 int bsp_gpio_init(void)
 {
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB | RCC_APB2Periph_GPIOC, ENABLE);
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOE, ENABLE);
 

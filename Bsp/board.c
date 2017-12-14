@@ -75,7 +75,9 @@ void BSP_Init(void)
 
     bsp_gpio_init();
     bsp_uart_init();
-    gdgd_init();
+    bsp_spi2_init();
+    gd_init();
+
     switch (RCC_GetSYSCLKSource())
     {
     case 0x00 :
