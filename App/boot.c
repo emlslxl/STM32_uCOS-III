@@ -11,21 +11,24 @@ void Task_BootHandler(void *p_arg)
     flag = ReadUpdateFlag();
     printf("\r\rupdate flag = %c\r\n", flag);
 
-    fatfs_init();
-
     if (flag == 'R')
     {
-        iap_erase_app1();
+        iap_init();
 
-        if (copy_app2_to_app1() != 0)
+#ifdef IAP_USE_APP2
+        //app1 app2 升级方案
         {
-            printf("copy_app2_to_app1 failed\r\n");
+            fota_app2_handle();
         }
-        else
+#else
+        //文件系统升级方案
         {
-            printf("copy_app2_to_app1 success\r\n");
-            iap_write_flag_N();
+            if (fatfs_init() == FR_OK)
+            {
+                fota_file_handle();
+            }
         }
+#endif
     }
 
     printf("jump to app1\r\n");

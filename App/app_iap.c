@@ -133,11 +133,6 @@ uint32_t iap_write_data(uint32_t write_address, uint8_t *data, uint32_t length)
         if (index != FLASH_COMPLETE)
             printf("flash write failed,error_num is %d\r\n", index);
 
-        if (*(uint32_t *)write_addr != *(uint32_t *)data_addr)
-        {
-            printf("flash write data not same\r\n");
-            return -2;
-        }
         write_addr += 4;
         data_addr += 4;
     }
@@ -148,11 +143,16 @@ uint32_t iap_write_data(uint32_t write_address, uint8_t *data, uint32_t length)
     return 0;
 }
 
-void iap_revc_data_packet(uint8_t *data, uint32_t length)
+void iap_revc_data_packet(uint32_t start_addr, uint8_t *data, uint32_t length)
 {
-    iap_write_data(iap.app2_addr_begin + iap.total_revc_byte, data, length);
+    iap_write_data(start_addr + iap.total_revc_byte, data, length);
     iap.total_revc_byte += length;
     printf("flash write data total %d byte\r\n", iap.total_revc_byte);
+}
+
+void write_data_to_app1(uint8_t *data, uint32_t length)
+{
+    iap_revc_data_packet(iap.app1_addr_begin, data, length);
 }
 
 uint8_t copy_flash_to_flash(uint32_t des, uint32_t src)
@@ -248,4 +248,18 @@ void boot_jump_to_app1(void)
 }
 
 
+void fota_app2_handle(void)
+{
+    iap_erase_app1();
 
+    if (copy_app2_to_app1() != 0)
+    {
+        printf("copy_app2_to_app1 failed\r\n");
+        iap_write_flag_R();
+    }
+    else
+    {
+        printf("copy_app2_to_app1 success\r\n");
+        iap_write_flag_N();
+    }
+}

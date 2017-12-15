@@ -3,6 +3,9 @@
 
 #include "board.h"
 
+
+#define IAP_USE_FILE    {IAP_USE_APP2,IAP_USE_FILE}
+
 // 是否更新标志
 // 'Y' --- 进行更新；
 // 'N' --- 不进行更新

@@ -2,6 +2,7 @@
 #define _BOOT_H_
 
 #include "global.h"
+#include "ff.h"
 
 
 
