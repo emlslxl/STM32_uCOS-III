@@ -16,7 +16,7 @@ extern OS_TCB   BootHandler_TCB;
 
 
 /************设置栈大小（单位为 OS_STK ）************/
-#define TASK_BootHandler_STK_SIZE         512
+#define TASK_BootHandler_STK_SIZE         2048
 
 
 
