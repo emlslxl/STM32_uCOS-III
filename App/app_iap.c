@@ -1,6 +1,7 @@
 #include "app_iap.h"
 
 struct iap_info iap;
+struct iap_flash_info iap_flash;
 
 
 
@@ -80,11 +81,9 @@ uint32_t WriteUpdateFlag(uint32_t updateFlag)
     uint32_t writeData = 0;
     uint32_t readData  = 0;
 
-
     FLASH_ClearFlag(FLASH_FLAG_EOP | FLASH_FLAG_PGERR | FLASH_FLAG_WRPRTERR);
 
     writeData = updateFlag;
-    writeData = (writeData << 8) & 0xFF00;
 
     ENTER_CRITICAL_SECTION();
     FLASH_Unlock();
@@ -101,12 +100,12 @@ uint32_t WriteUpdateFlag(uint32_t updateFlag)
         return 0;
 }
 
-uint32_t ReadUpdateFlag(void)
+void read_upgrade_info(void)
 {
-    uint32_t updateFlag = 0;
-    updateFlag = (*(u32 *)(ADDR_DATA_FILED));
-    updateFlag = (updateFlag >> 8) & 0xFF;
-    return updateFlag;
+    iap_flash.upgrade_flag = (*(u32 *)(ADDR_DATA_FILED));
+    printf("upgrade flag = %c\r\n", iap_flash.upgrade_flag);
+
+    iap_flash.upgrade_file_size = (*(u32 *)(ADDR_DATA_RECV_BYTE));
 }
 
 
@@ -200,12 +199,26 @@ uint8_t copy_app1_to_app2(void)
 
 void iap_write_flag_R(void)
 {
-    WriteUpdateFlag('R');
+    if (WriteUpdateFlag('R') == 1)
+    {
+        printf("iap write flag R success\r\n");
+    }
+    else
+    {
+        printf("iap write flag R failed\r\n");
+    }
 }
 
 void iap_write_flag_N(void)
 {
-    WriteUpdateFlag('N');
+    if (WriteUpdateFlag('N') == 1)
+    {
+        printf("iap write flag N success\r\n");
+    }
+    else
+    {
+        printf("iap write flag N failed\r\n");
+    }
 }
 
 void iap_erase_app1(void)

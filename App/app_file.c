@@ -62,6 +62,8 @@ FRESULT fota_file_handle(void)
     uint32 left_read_byte = 0;
     uint8 read_buff[1024] = {0};
 
+    printf("upgrade_file_size = %d byte\r\n", iap_flash.upgrade_file_size);
+
     res = f_open(&fd, "0:/fota.txt", FA_OPEN_EXISTING | FA_READ);
     if (res != FR_OK)
     {
@@ -74,7 +76,7 @@ FRESULT fota_file_handle(void)
         printf("f_open fota.txt success\r\n");
 
         //校验数据是否正确
-        for (left_read_byte = 119612, total_read_byte = 0; left_read_byte != 0;)
+        for (left_read_byte = iap_flash.upgrade_file_size, total_read_byte = 0; left_read_byte != 0;)
         {
             rt_iwdg_feed();
 
@@ -103,7 +105,7 @@ FRESULT fota_file_handle(void)
         }
 
         //如果升级数据正确 擦除APP1
-        if (total_read_byte == 119612)
+        if (total_read_byte == iap_flash.upgrade_file_size)
         {
             iap_erase_app1();
         }
@@ -114,7 +116,7 @@ FRESULT fota_file_handle(void)
         }
 
         //写数据到APP1
-        for (left_read_byte = 119612, total_read_byte = 0; left_read_byte != 0;)
+        for (left_read_byte = iap_flash.upgrade_file_size, total_read_byte = 0; left_read_byte != 0;)
         {
             rt_iwdg_feed();
 
@@ -149,7 +151,7 @@ FRESULT fota_file_handle(void)
 
         f_close(&fd);
 
-        if (total_read_byte == 119612)  //成功条件
+        if (total_read_byte == iap_flash.upgrade_file_size)  //成功条件
         {
             iap_write_flag_N();
             return FR_OK;

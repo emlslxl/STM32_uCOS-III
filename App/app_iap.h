@@ -18,6 +18,8 @@
 #define ADDR_APP_RUN        (ADDR_DATA_FILED + DATA_FILED_SIZE)
 #define ADDR_APP_BKP        (ADDR_APP_RUN    + APP_DATA_SIZE)
 
+#define ADDR_DATA_RECV_BYTE (ADDR_DATA_FILED + 4)   //数据域 占用4字节 表示升级文件size
+
 struct iap_info
 {
     uint32_t app1_addr_begin;
@@ -26,6 +28,14 @@ struct iap_info
     uint32_t app2_addr_end;
     uint32_t total_revc_byte;
 };
+
+struct iap_flash_info
+{
+    uint32_t upgrade_flag;
+    uint32_t upgrade_file_size;
+};
+
+extern struct iap_flash_info iap_flash;
 
 #if defined (STM32F10X_MD) || defined (STM32F10X_MD_VL)
     #define PAGE_SIZE                         (0x400)    /* 1 Kbyte */
@@ -43,7 +53,7 @@ struct iap_info
     #error "Please select first the STM32 device to be used (in stm32f10x.h)"
 #endif
 
-extern uint32_t ReadUpdateFlag(void);
+extern void read_upgrade_info(void);
 extern void iap_write_flag_R(void);
 extern void iap_write_flag_N(void);
 extern void iap_erase_app1(void);

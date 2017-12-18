@@ -5,14 +5,12 @@
 
 void Task_BootHandler(void *p_arg)
 {
-    uint8_t flag = 0;
     OS_ERR err;
     (void)p_arg;
 
-    flag = ReadUpdateFlag();
-    printf("\r\rupdate flag = %c\r\n", flag);
+    read_upgrade_info();
 
-    if (flag == 'R')
+    if (iap_flash.upgrade_flag == 'R')
     {
         iap_init();
 
