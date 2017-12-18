@@ -614,6 +614,11 @@
               <FileType>1</FileType>
               <FilePath>..\..\Bsp\spi_flash_gd.c</FilePath>
             </File>
+            <File>
+              <FileName>drv_iwdg.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Bsp\drv_iwdg.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

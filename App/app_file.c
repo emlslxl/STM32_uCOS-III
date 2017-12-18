@@ -77,6 +77,8 @@ FRESULT fota_file_handle(void)
         //校验数据是否正确
         for (left_read_byte = 119612, total_read_byte = 0; left_read_byte != 0;)
         {
+            rt_iwdg_feed();
+
             f_lseek(&fd, total_read_byte);
 
             if (left_read_byte >= 1024)
@@ -115,6 +117,8 @@ FRESULT fota_file_handle(void)
         //写数据到APP1
         for (left_read_byte = 119612, total_read_byte = 0; left_read_byte != 0;)
         {
+            rt_iwdg_feed();
+
             f_lseek(&fd, total_read_byte);
 
             if (left_read_byte >= 1024)

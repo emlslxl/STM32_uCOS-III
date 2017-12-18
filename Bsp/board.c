@@ -77,6 +77,9 @@ void BSP_Init(void)
     bsp_uart_init();
     bsp_spi2_init();
 
+    printf("**********************************************\r\n");
+    printf("*************** bootloader v1.0 **************\r\n");
+    printf("**********************************************\r\n");
     switch (RCC_GetSYSCLKSource())
     {
     case 0x00 :

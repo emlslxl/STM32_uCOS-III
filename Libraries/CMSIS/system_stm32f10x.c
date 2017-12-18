@@ -1002,6 +1002,13 @@ static void SetSysClockTo72(void)
 {
     __IO uint32_t StartUpCounter = 0, HSEStatus = 0;
 
+    /* start IWDG */
+    IWDG->KR = 0x5555;
+    IWDG->PR = 0x06;
+    IWDG->RLR = 0xfff;
+    IWDG->KR = 0xAAAA;
+    IWDG->KR = 0xCCCC;
+
     /* SYSCLK, HCLK, PCLK2 and PCLK1 configuration ---------------------------*/
     /* Enable HSE */
     RCC->CR |= ((uint32_t)RCC_CR_HSEON);
