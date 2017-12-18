@@ -155,7 +155,7 @@ void write_data_to_app1(uint8_t *data, uint32_t length)
     iap_revc_data_packet(iap.app1_addr_begin, data, length);
 }
 
-uint8_t copy_flash_to_flash(uint32_t des, uint32_t src)
+int copy_flash_to_flash(uint32_t des, uint32_t src)
 {
     uint32_t datalen;
     uint32_t addr_src;

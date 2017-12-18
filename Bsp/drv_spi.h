@@ -26,4 +26,4 @@
 #define sFLASH_CS_LOW()       GPIO_ResetBits(sFLASH_CS_GPIO_PORT, sFLASH_CS_PIN)
 #define sFLASH_CS_HIGH()      GPIO_SetBits(sFLASH_CS_GPIO_PORT, sFLASH_CS_PIN)
 
-#endif /* end of include guard: __DRV_SPI_H__ */'
+#endif /* end of include guard: __DRV_SPI_H__ */

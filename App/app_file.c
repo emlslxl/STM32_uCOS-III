@@ -4,10 +4,10 @@ FATFS fs[1];
 
 FRESULT fatfs_init(void)
 {
-    FRESULT res = 0;
-    FIL fd;
-    uint8 read_buff[200] = {0};
-    UINT cnt = 0;
+    FRESULT res;
+    // FIL fd;
+    // uint8 read_buff[200] = {0};
+    // UINT cnt = 0;
 
     res = f_mount(&fs[0], "0:/", 0);
     if (res != FR_OK)
@@ -56,9 +56,8 @@ FRESULT fatfs_init(void)
 FRESULT fota_file_handle(void)
 {
     FIL fd;
-    FRESULT res = 0;
+    FRESULT res;
     UINT cnt = 0;
-    uint32 i = 0;
     uint32 total_read_byte = 0;
     uint32 left_read_byte = 0;
     uint8 read_buff[1024] = {0};

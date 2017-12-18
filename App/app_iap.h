@@ -43,12 +43,14 @@ struct iap_info
     #error "Please select first the STM32 device to be used (in stm32f10x.h)"
 #endif
 
+extern uint32_t ReadUpdateFlag(void);
 extern void iap_write_flag_R(void);
 extern void iap_write_flag_N(void);
 extern void iap_erase_app1(void);
 extern void iap_erase_app2(void);
 extern void boot_jump_to_app1(void);
-extern uint8_t copy_app2_to_app1(void);
-extern uint8_t copy_app1_to_app2(void);
+extern void iap_init(void);
+extern void fota_app2_handle(void);
+extern void write_data_to_app1(uint8_t *data, uint32_t length);
 
 #endif /* end of include guard: __APP_IAP_H__ */
