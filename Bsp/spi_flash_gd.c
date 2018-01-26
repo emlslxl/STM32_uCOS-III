@@ -173,7 +173,7 @@ uint32_t sFLASH_NOR_ReadID(void)
     data3 = sFLASH_SendByte(sFLASH_DUMMY_BYTE);
     sFLASH_CS_HIGH();
     data = (data1 << 16) | (data2 << 8) | data3;
-    printf("JEDEC Read-ID Data : 0x%x\r\n", data);
+
     return data;
 }
 

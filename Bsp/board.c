@@ -80,22 +80,6 @@ void BSP_Init(void)
     printf("**********************************************\r\n");
     printf("*************** bootloader v1.0 **************\r\n");
     printf("**********************************************\r\n");
-    switch (RCC_GetSYSCLKSource())
-    {
-    case 0x00 :
-        printf("\r\nHSI used as system clock.\r\n");
-        break;
-    case 0x04 :
-        printf("\r\nHSE used as system clock.\r\n");
-        break;
-    case 0x08 :
-        printf("\r\nPLL used as system clock.\r\n");
-        break;
-
-    default:
-        printf("\r\n * unkonwn clock soure. *");
-        break;
-    }
 
     gd_init();
 }
