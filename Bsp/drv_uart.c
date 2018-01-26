@@ -18,7 +18,7 @@
 #include "drv_uart.h"
 
 
-static int stm32_putc(USART_TypeDef* USARTx, char c)
+static int stm32_putc(USART_TypeDef *USARTx, char c)
 {
     USARTx->SR;// 防止第一次发送时的乱码
     USARTx->DR = c;
@@ -27,7 +27,7 @@ static int stm32_putc(USART_TypeDef* USARTx, char c)
     return 1;
 }
 
-static int stm32_getc(USART_TypeDef* USARTx)
+static int stm32_getc(USART_TypeDef *USARTx)
 {
     int ch;
 

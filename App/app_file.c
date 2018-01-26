@@ -53,11 +53,29 @@ FRESULT fatfs_init(void)
 
 }
 
+uint16 CheckSum16(uint8 *buf, uint32 len)
+{
+    uint32 i = 0;
+    uint32 Sum = 0;
+    uint16 CheckSum = 0;
+
+    for (i = 0; i < len; i++)
+    {
+        Sum += *buf++;
+    }
+    CheckSum = (Sum >> 16) + (Sum & 0xffff);
+    return CheckSum;
+}
+
 FRESULT fota_file_handle(void)
 {
     FIL fd;
     FRESULT res;
     UINT cnt = 0;
+    uint32 j = 0;
+    uint32 sum = 0;
+    uint16 file_check_sum = 0;
+    uint16 flash_check_sum = 0;
     uint32 total_read_byte = 0;
     uint32 left_read_byte = 0;
     uint8 read_buff[1024] = {0};
@@ -85,23 +103,21 @@ FRESULT fota_file_handle(void)
             if (left_read_byte >= 1024)
             {
                 f_read(&fd, read_buff, 1024, &cnt);
-
-                //计算校验值
-                //to do
             }
             else
             {
                 f_read(&fd, read_buff, left_read_byte, &cnt);
-
-                //计算校验值
-                //to do
             }
 
             total_read_byte += cnt;
             left_read_byte -= cnt;
 
-            // printf("total_read_byte = %d, left_read_byte = %d\r\n",
-            //        total_read_byte, left_read_byte);
+            for (j = 0; j < cnt; j++)
+            {
+                sum += read_buff[j];
+            }
+
+            file_check_sum = ((sum >> 16) + (sum & 0xffff));
         }
 
         //如果升级数据正确 擦除APP1
@@ -151,7 +167,12 @@ FRESULT fota_file_handle(void)
 
         f_close(&fd);
 
-        if (total_read_byte == iap_flash.upgrade_file_size)  //成功条件
+        flash_check_sum = CheckSum16((uint8 *)ADDR_APP_RUN, iap_flash.upgrade_file_size);
+        printf("flash_check_sum = %d\r\n", flash_check_sum);
+        printf("file_check_sum = %d\r\n", file_check_sum);
+
+        if ((total_read_byte == iap_flash.upgrade_file_size) &&
+                (flash_check_sum == file_check_sum))
         {
             iap_write_flag_N();
             return FR_OK;
