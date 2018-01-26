@@ -33,6 +33,7 @@ void Task_BootHandler(void *p_arg)
     printf("jump to app1\r\n");
     printf("\r\n");
     printf("\r\n");
+    ENTER_CRITICAL_SECTION();
     boot_jump_to_app1();
 
     while (1)
