@@ -38,9 +38,9 @@ void Task_BootHandler(void *p_arg)
 
     while (1)
     {
-        rt_led_blue_on();
+        rt_led_red_on();
         OSTimeDly(100, OS_OPT_TIME_DLY, &err);
-        rt_led_blue_off();
+        rt_led_red_off();
         OSTimeDly(100, OS_OPT_TIME_DLY, &err);
     }
 }

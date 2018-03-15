@@ -68,7 +68,9 @@ static void RCC_Configuration(void)
 #if defined(RT_USING_UART3)
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO | RCC_APB2Periph_GPIOD, ENABLE);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);
+#ifdef UART3_REMAP
     GPIO_PinRemapConfig(GPIO_FullRemap_USART3, ENABLE);
+#endif
 #endif
 
 #if defined(RT_USING_UART4)
@@ -95,8 +97,13 @@ static void GPIO_Configuration(void)
 #endif /* RT_USING_UART2 */
 
 #if defined(RT_USING_UART3)
+#ifdef UART3_REMAP
     rt_gpio_set_mode(GPIOD, GPIO_Pin_9, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz);
     rt_gpio_set_mode(GPIOD, GPIO_Pin_8, GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
+#else
+    rt_gpio_set_mode(GPIOB, GPIO_Pin_11, GPIO_Mode_IN_FLOATING, GPIO_Speed_50MHz);
+    rt_gpio_set_mode(GPIOB, GPIO_Pin_10, GPIO_Mode_AF_PP, GPIO_Speed_50MHz);
+#endif /* UART3_REMAP */
 #endif /* RT_USING_UART3 */
 
 #if defined(RT_USING_UART4)

@@ -4,11 +4,11 @@
 #include "board.h"
 
 //LED
-#define PORT_GPIO_LED_RED       GPIOC
+#define PORT_GPIO_LED_RED       GPIOB
 #define PORT_GPIO_LED_GREEN     GPIOC
 #define PORT_GPIO_LED_BLUE      GPIOD
 #define PORT_GPIO_LED_YELLOW    GPIOD
-#define PIN_GPIO_LED_RED        GPIO_Pin_6
+#define PIN_GPIO_LED_RED        GPIO_Pin_7
 #define PIN_GPIO_LED_GREEN      GPIO_Pin_7
 #define PIN_GPIO_LED_BLUE       GPIO_Pin_3
 #define PIN_GPIO_LED_YELLOW     GPIO_Pin_4
